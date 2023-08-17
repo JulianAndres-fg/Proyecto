@@ -12,7 +12,8 @@ class CaracteristicaController extends Controller
      */
     public function index()
     {
-        //
+        $Caracteristicas = caracteristica::all();
+        return view('caracteristicas.index',compact('Caracteristicas'));
     }
 
     /**
@@ -20,7 +21,7 @@ class CaracteristicaController extends Controller
      */
     public function create()
     {
-        //
+        return view('caracteristicas.create');
     }
 
     /**
@@ -28,7 +29,13 @@ class CaracteristicaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Caracteristicas = new caracteristica();
+        $Caracteristicas-> caracteristica_estado = $request -> input('estado');
+        $Caracteristicas-> caracteristica_descripcion = $request -> input('descripcion');
+        $Caracteristicas-> caracteristica_nombre = $request -> input('nombre');
+        $Caracteristicas-> caracteristica_precio = $request -> input('precio');
+        $Caracteristicas-> save();
+        return redirect()->route('caracteristicas.index')->with('success', 'Caracteristica creada exitosamente.');
     }
 
     /**

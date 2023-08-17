@@ -12,7 +12,8 @@ class ServicioController extends Controller
      */
     public function index()
     {
-        //
+        $Servicios = servicio::all();
+        return view('servicios.index',compact('Servicios'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ServicioController extends Controller
      */
     public function create()
     {
-        //
+        return view('servicios.create');
     }
 
     /**
@@ -28,7 +29,13 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Servicios = new servicio();
+        $Servicios-> servicio_nombre = $request -> input('nombre');
+        $Servicios-> servicio_estado = $request -> input('estado');
+        $Servicios-> servicio_precio = $request -> input('precio');
+        $Servicios-> servicio_cantidad = $request -> input('cantidad');
+        $Servicios-> save();
+        return redirect()->route('servicios.index')->with('success', 'Servicio creado exitosamente.');
     }
 
     /**
