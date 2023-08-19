@@ -5,7 +5,13 @@ use App\Http\Controllers\DomoController;
 
 //Caracteristicas
 use App\Http\Controllers\CaracteristicaController;
+
+//Servicio
 use App\Http\Controllers\ServicioController;
+
+//Domo_Caracteristica
+use App\Http\Controllers\DomoCaracteristicaController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +36,9 @@ Route::resource('caracteristicas',CaracteristicaController::class);
 
 //ruta servicios
 Route::resource('servicios',ServicioController::class);
+
+//ruta domo_caracteristica
+Route::resource('domocaracteristicas',DomoCaracteristicaController::class);
 
 
 Auth::routes();

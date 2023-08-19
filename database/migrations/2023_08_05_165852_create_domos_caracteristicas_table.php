@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('domos_caracteristicas', function (Blueprint $table) {
+        Schema::create('domo_caracteristicas', function (Blueprint $table) {
             $table->increments('domo_caracteristica_cod');
             $table->unsignedInteger('caracteristica_id');
             $table->foreign('caracteristica_id')->references('caracteristica_cod')->on('caracteristicas');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('domos_caracteristicas');
+        Schema::dropIfExists('domo_caracteristicas');
     }
 };

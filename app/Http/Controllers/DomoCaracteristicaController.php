@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\caracteristica;
+use App\Models\domo;
 use App\Models\domoCaracteristica;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,15 @@ class DomoCaracteristicaController extends Controller
      */
     public function index()
     {
-        //
+        $Domos_caracteristicas = domoCaracteristica::all();
+        $header = [
+            'Id',
+            'Domo',
+            'Caracteristica'
+        ];
+        $Caracteristicas = caracteristica::all();
+        $Domos = domo::all();
+        return view('domocaracteristica.index',compact('Domos_caracteristicas','Caracteristicas','Domos','header'));
     }
 
     /**
@@ -20,7 +30,9 @@ class DomoCaracteristicaController extends Controller
      */
     public function create()
     {
-        //
+        $Caracteristicas = caracteristica::all();
+        $Domos = domo::all();
+        return view('domocaracteristica.create',compact('Domos','Caracteristicas'));
     }
 
     /**
@@ -28,7 +40,11 @@ class DomoCaracteristicaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Domos_caracteristicas = new domoCaracteristica();
+        $Domos_caracteristicas-> caracteristica_id = $request -> input('caracteristica');
+        $Domos_caracteristicas-> domo_id = $request -> input('Domo');
+        $Domos_caracteristicas-> save();
+        return redirect()->route('domocaracteristicas.index')->with('success', 'Caracteristica creada exitosamente.');
     }
 
     /**
@@ -52,7 +68,7 @@ class DomoCaracteristicaController extends Controller
      */
     public function update(Request $request, domoCaracteristica $domoCaracteristica)
     {
-        //
+   
     }
 
     /**
@@ -60,6 +76,6 @@ class DomoCaracteristicaController extends Controller
      */
     public function destroy(domoCaracteristica $domoCaracteristica)
     {
-        //
+
     }
 }

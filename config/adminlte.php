@@ -364,6 +364,24 @@ return [
                         ], 
                     ],
                 ],
+
+                [
+
+                    'text' => 'Domo caracteristica',
+                    'icon'    => 'fas fa-fw fa-star',
+                    'submenu' => [
+                        [
+                            'text' => 'Lista domo caracteristicas',
+                            'url'  => 'domocaracteristicas',            
+                            'icon' => 'fas fa-fw fa-list',
+                        ],
+                        [
+                            'text' => 'Crear domo caracteristica',
+                            'url'  => 'domocaracteristicas/create',            
+                            'icon' => 'fas fa-fw fa-plus',
+                        ], 
+                    ],
+                ],
             
             
             ],
@@ -493,17 +511,17 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                    'location' => 'vendor/datatables/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                    'location' => 'vendor/datatables/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                    'location' => 'vendor/datatables/css/dataTables.bootstrap4.min.css',
                 ],
             ],
         ],
