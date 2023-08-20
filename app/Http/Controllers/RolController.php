@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\rol;
+use App\Models\role;
 use Illuminate\Http\Request;
 
 class RolController extends Controller
@@ -12,7 +12,14 @@ class RolController extends Controller
      */
     public function index()
     {
-        //
+        $Roles = role::all();
+        $header = [
+            'Id',
+            'Nombre',
+        ];
+        return view('roles.index',compact('Roles','header'));
+
+        
     }
 
     /**
@@ -20,7 +27,8 @@ class RolController extends Controller
      */
     public function create()
     {
-        //
+        return view('roles.create');
+        
     }
 
     /**
@@ -28,13 +36,16 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Roles = new role();
+        $Roles-> rol_nombre = $request -> input('nombre');
+        $Roles-> save();
+        return redirect()->route('roles.index')->with('success', 'Rol creado exitosamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(rol $rol)
+    public function show(role $role)
     {
         //
     }
@@ -42,7 +53,7 @@ class RolController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(rol $rol)
+    public function edit(role $role)
     {
         //
     }
@@ -50,7 +61,7 @@ class RolController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, rol $rol)
+    public function update(Request $request, role $role)
     {
         //
     }
@@ -58,7 +69,7 @@ class RolController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(rol $rol)
+    public function destroy(role $role)
     {
         //
     }

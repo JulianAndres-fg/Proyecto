@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class permisoRol extends Model
+class permisoRole extends Model
 {
     use HasFactory;
 
@@ -14,8 +14,8 @@ class permisoRol extends Model
             return $this->belongsTo(permiso::class, 'permiso_id', 'permiso_cod');
         }
 
-    public function rol()
+    public function role()
         {
-            return $this->belongsTo(rol::class, 'rol_id', 'rol_cod');
+            return $this->belongsTo(role::class, 'rol_id', 'rol_cod');
         }
 }

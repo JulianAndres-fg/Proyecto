@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Editar servicios')
 
 @section('content_header')
     <h1>PANEL DE CONTROL</h1>

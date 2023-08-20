@@ -12,7 +12,12 @@ class PermisoController extends Controller
      */
     public function index()
     {
-        //
+        $Permisos = permiso::all();
+        $header = [
+            'Id',
+            'Nombre',
+        ];
+        return view('permisos.index',compact('Permisos','header'));
     }
 
     /**
@@ -20,7 +25,8 @@ class PermisoController extends Controller
      */
     public function create()
     {
-        //
+        return view('permisos.create');
+        
     }
 
     /**
@@ -28,7 +34,10 @@ class PermisoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Permisos = new permiso();
+        $Permisos-> permiso_nombre = $request -> input('nombre');
+        $Permisos-> save();
+        return redirect()->route('permisos.index')->with('success', 'Permiso creado exitosamente.');
     }
 
     /**

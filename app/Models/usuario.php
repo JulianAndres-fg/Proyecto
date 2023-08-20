@@ -9,8 +9,8 @@ class usuario extends Model
 {
     use HasFactory;
 
-    public function rol()
+    public function role()
         {
-            return $this->belongsTo(rol::class, 'rol_id', 'rol_cod');
+            return $this->belongsTo(role::class, 'rol_id', 'rol_cod');
         }
 }
