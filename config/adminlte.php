@@ -325,6 +325,66 @@ return [
             'text' => 'Roles',
             'url'  => '#',
             'icon' => 'fas fa-fw fa-chess',
+
+            'submenu' => [
+                [
+                'text' => 'Lista roles',
+                'url'  => 'roles',            
+                'icon' => 'fas fa-fw fa-list'],
+
+                [
+                    'text' => 'Crear rol',
+                    'url'  => 'roles/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'label' => 'Nuevo',
+                    'label_color' => 'success',
+                ],
+
+                [
+                    'text' => 'Permisos',
+                    'url'  => '#',
+                    'icon' => 'fas fa-fw fa-fingerprint',
+                    'submenu' => [
+
+                        [
+                            'text' => 'Lista Permisos',
+                            'url'  => 'permisos',            
+                            'icon' => 'fas fa-fw fa-list'
+                        ],
+
+                        [
+                            'text' => 'Crear permiso',
+                            'url'  => 'permisos/create',
+                            'icon' => 'fas fa-fw fa-plus',
+                            'label' => 'Nuevo',
+                            'label_color' => 'success',
+                        ],
+                    ]   
+                    ],
+
+                [
+                    'text' => 'Permiso rol',
+                    'url'  => '#',
+                    'icon' => 'fas fa-fw fa-star',
+                    'submenu' => [
+
+                        [
+                            'text' => 'Lista Permiso roles',
+                            'url'  => 'permisoroles',            
+                            'icon' => 'fas fa-fw fa-list'
+                        ],
+
+                        [
+                            'text' => 'Crear permiso rol',
+                            'url'  => 'permisoroles/create',
+                            'icon' => 'fas fa-fw fa-plus',
+                            'label' => 'Nuevo',
+                            'label_color' => 'success',
+                        ],
+                    ]   
+                ]
+
+            ]
         ],
 
         ['header' => 'ACCIONES'],
@@ -381,9 +441,7 @@ return [
                             'icon' => 'fas fa-fw fa-plus',
                         ], 
                     ],
-                ],
-            
-            
+                ],    
             ],
         ],
 

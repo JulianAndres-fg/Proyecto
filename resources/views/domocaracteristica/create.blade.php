@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Crear domos caracteristicas')
 
 @section('content_header')
     <h1>Agregar caracteristica al domo</h1>
 @stop
 
 @section('content')
-    <p>domo caracteristica</p>
+    <p>Crear domo caracteristica</p>
 
     <form action="{{url('domocaracteristicas')}}" method="POST">
         @csrf

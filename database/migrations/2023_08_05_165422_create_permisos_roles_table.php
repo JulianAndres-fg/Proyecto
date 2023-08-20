@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permisos_roles', function (Blueprint $table) {
+        Schema::create('permiso_roles', function (Blueprint $table) {
             $table->increments('permiso_rol_cod');
             $table->unsignedInteger('permiso_id');
             $table->foreign('permiso_id')->references('permiso_cod')->on('permisos');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permisos_roles');
+        Schema::dropIfExists('permiso_roles');
     }
 };

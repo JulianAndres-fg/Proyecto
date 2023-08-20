@@ -11,6 +11,14 @@ use App\Http\Controllers\ServicioController;
 
 //Domo_Caracteristica
 use App\Http\Controllers\DomoCaracteristicaController;
+//rol
+use App\Http\Controllers\RolController;
+
+//permiso
+use App\Http\Controllers\PermisoController;
+
+//Permiso_Rol
+use App\Http\Controllers\PermisoRolController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +48,14 @@ Route::resource('servicios',ServicioController::class);
 //ruta domo_caracteristica
 Route::resource('domocaracteristicas',DomoCaracteristicaController::class);
 
+//ruta roles
+Route::resource('roles',RolController::class);
+
+//ruta permisos
+Route::resource('permisos',PermisoController::class);
+
+//ruta permiso_roles
+Route::resource('permisoroles',PermisoRolController::class);
 
 Auth::routes();
 

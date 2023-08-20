@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\permisoRol;
+use App\Models\permiso;
+use App\Models\permisoRole;
+use App\Models\role;
 use Illuminate\Http\Request;
 
 class PermisoRolController extends Controller
@@ -12,7 +14,15 @@ class PermisoRolController extends Controller
      */
     public function index()
     {
-        //
+        $Permisos_Roles = permisoRole::all();
+        $header = [
+            'Id',
+            'Permiso',
+            'Rol'
+        ];
+        $Permisos = permiso::all();
+        $Roles = role::all();
+        return view('permisorol.index',compact('Permisos_Roles','Permisos','Roles','header'));
     }
 
     /**
@@ -20,7 +30,9 @@ class PermisoRolController extends Controller
      */
     public function create()
     {
-        //
+        $Permisos = permiso::all();
+        $Roles = role::all();
+        return view('permisorol.create',compact('Permisos','Roles'));
     }
 
     /**
@@ -28,13 +40,17 @@ class PermisoRolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Permisos_Roles = new permisoRole();
+        $Permisos_Roles-> permiso_id = $request -> input('permiso');
+        $Permisos_Roles-> rol_id = $request -> input('rol');
+        $Permisos_Roles-> save();
+        return redirect()->route('permisoroles.index')->with('success', 'Permiso Rol creado exitosamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(permisoRol $permisoRol)
+    public function show(permisoRole $permisoRole)
     {
         //
     }
@@ -42,7 +58,7 @@ class PermisoRolController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(permisoRol $permisoRol)
+    public function edit(permisoRole $permisoRole)
     {
         //
     }
@@ -50,7 +66,7 @@ class PermisoRolController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, permisoRol $permisoRol)
+    public function update(Request $request, permisoRole $permisoRole)
     {
         //
     }
@@ -58,7 +74,7 @@ class PermisoRolController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(permisoRol $permisoRol)
+    public function destroy(permisoRole $permisoRole)
     {
         //
     }
