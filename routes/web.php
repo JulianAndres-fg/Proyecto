@@ -32,6 +32,13 @@ use App\Http\Controllers\MetodoDePagoController;
 
 //reservas
 use App\Models\reserva;
+//Ofertas
+use App\Http\Controllers\OfertaController;
+
+//plan oferta
+use App\Http\Controllers\PlanOfertaController;
+
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -81,6 +88,15 @@ Route::resource('permisoroles',PermisoRolController::class);
 
 //ruta metodos_de_pagos
 Route::resource('metodosdepago',MetodoDePagoController::class);
+
+//ruta ofertas
+Route::resource('ofertas',OfertaController::class);
+
+//ruta plan oferta
+Route::resource('planoferta',PlanOfertaController::class);
+
+
+
 
 
 
