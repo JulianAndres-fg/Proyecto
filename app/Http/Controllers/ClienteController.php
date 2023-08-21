@@ -12,7 +12,18 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $heads =[
+            'Cedula',
+            'Nombre',
+            'Apellido',
+            'Correo',
+            'Celular',
+            'Fecha de nacimiento',
+            'Ciudad',
+            'Direccion',
+        ];
+         $Clientes = cliente::all();
+         return view('cliente.index',compact('heads','Clientes'));
     }
 
     /**
@@ -20,7 +31,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+     return view('cliente.create');   
     }
 
     /**
@@ -28,7 +39,17 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Clientes = new cliente();
+        $Clientes-> cliente_cedula = $request -> input('cedula');
+        $Clientes-> cliente_nombre = $request -> input('nombre');
+        $Clientes-> cliente_apellido = $request -> input('apellido');
+        $Clientes-> cliente_correo = $request -> input('correo');
+        $Clientes-> cliente_celular = $request -> input('celular');
+        $Clientes-> cliente_fech_nac = $request -> input('fechanac');
+        $Clientes-> cliente_ciudad = $request -> input('ciudad');
+        $Clientes-> cliente_direccion = $request -> input('direccion');
+        $Clientes-> save();
+        return redirect()->route('clientes.index')->with('success', 'Cliente agregado exitosamente.');
     }
 
     /**

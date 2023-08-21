@@ -12,8 +12,15 @@ class CaracteristicaController extends Controller
      */
     public function index()
     {
+        $heads = [
+            'Id',
+            'Estado',
+            'Descripcion',
+            'Nombre',
+            'Precio'
+        ];
         $Caracteristicas = caracteristica::all();
-        return view('caracteristicas.index',compact('Caracteristicas'));
+        return view('caracteristicas.index',compact('Caracteristicas','heads'));
     }
 
     /**

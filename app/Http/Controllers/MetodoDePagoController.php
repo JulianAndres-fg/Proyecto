@@ -12,7 +12,12 @@ class MetodoDePagoController extends Controller
      */
     public function index()
     {
-        //
+        $header = [
+            'Id',
+            'Nombre',
+        ];
+        $MetodosDePagos = metodoDePago::all();
+        return view('metodosdepago.index',compact('MetodosDePagos','header'));
     }
 
     /**
@@ -20,7 +25,8 @@ class MetodoDePagoController extends Controller
      */
     public function create()
     {
-        //
+        return view('metodosdepago.create');
+        
     }
 
     /**
@@ -28,7 +34,10 @@ class MetodoDePagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Roles = new metodoDePago();
+        $Roles-> metodo_de_pago_nombre = $request -> input('nombre');
+        $Roles-> save();
+        return redirect()->route('metodosdepago.index')->with('success', 'metodo de pago creado exitosamente.');
     }
 
     /**

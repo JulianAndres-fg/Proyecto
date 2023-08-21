@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
-    'title_prefix' => '',
+    'title' => '',
+    'title_prefix' => 'Domux |',
     'title_postfix' => '',
 
     /*
@@ -451,12 +451,12 @@ return [
             'submenu' => [
                 [
                 'text' => 'Lista planes',
-                'url'  => '#',            
+                'url'  => 'planes',
                 'icon' => 'fas fa-fw fa-list'],
 
                 [
                     'text' => 'Crear plan',
-                    'url'  => '#',            
+                    'url'  => 'planes/create',
                     'icon' => 'fas fa-fw fa-plus',
                     'label' => 'Nuevo',
                     'label_color' => 'success',
@@ -497,6 +497,43 @@ return [
                     'url'  => '#',
                     'icon' => 'fas fa-fw fa-plus',
                     'label' => 'Nuevo',
+                    'label_color' => 'success',
+                ],
+            ],
+        ],
+
+        [
+            'text' => 'Clientes',
+            'icon' => 'fas fa-fw fa-users',
+            'submenu' => [
+                [
+                'text' => 'Lista clientes',
+                'url'  => 'clientes',
+                'icon' => 'fas fa-fw fa-list'],
+
+                [
+                    'text' => 'Crear cliente',
+                    'url'  => 'clientes/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'label' => 'Nuevo',
+                    'label_color' => 'success',
+                ],
+            ],
+        ],
+
+        [
+            'text' => 'Metodos de pago',
+            'icon' => 'fas fa-fw fa-wallet',
+            'submenu' => [
+                [
+                'text' => 'Lista metodos de pago',
+                'url'  => 'metodosdepago',
+                'icon' => 'fas fa-fw fa-list'],
+
+                [
+                    'text' => 'Crear metodo de pago',
+                    'url'  => 'metodosdepago/create',
+                    'icon' => 'fas fa-fw fa-plus',
                     'label_color' => 'success',
                 ],
             ],
@@ -580,6 +617,27 @@ return [
                     'type' => 'css',
                     'asset' => true,
                     'location' => 'vendor/datatables/css/dataTables.bootstrap4.min.css',
+                ],
+            ],
+        ],
+
+        'TempusDominusBs4' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/moment/moment.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
                 ],
             ],
         ],

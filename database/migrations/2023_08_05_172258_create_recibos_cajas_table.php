@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recibos_cajas', function (Blueprint $table) {
+        Schema::create('recibo_cajas', function (Blueprint $table) {
             $table->increments('recibo_caja');
             $table->unsignedInteger('reserva_id');
             $table->foreign('reserva_id')->references('reserva_cod')->on('reservas');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->float('recibo_caja_total');
             $table->date('recibo_caja_fecha');
             $table->unsignedInteger('metodo_de_pago_id');
-            $table->foreign('metodo_de_pago_id')->references('metodo_de_pago_cod')->on('metodos_de_pagos');
+            $table->foreign('metodo_de_pago_id')->references('metodo_de_pago_cod')->on('metodo_de_pagos');
             $table->timestamps();
         });
     }

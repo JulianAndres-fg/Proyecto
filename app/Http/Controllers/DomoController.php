@@ -12,8 +12,17 @@ class DomoController extends Controller
      */
     public function index()
     {
+        $heads = [
+            'Id',
+            'Nombre',
+            'Estado',
+            'Precio',
+            'Ubicacion',
+            'Descripcion',
+            'Capacidad'
+        ];
         $Domos = domo::all();
-        return view('domos.index',compact('Domos'));
+        return view('domos.index',compact('Domos','heads'));
     }
 
     /**
@@ -28,7 +37,20 @@ class DomoController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
+    
     {
+        $request->validate([
+            'nombre' => 'required',
+            'estado' => 'required',
+            'precio' => 'required|numeric',
+            'ubicacion' => 'required',
+            'descripcion' => 'required',
+            'capacidad' => 'required|numeric|max:20',
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe ser mayor a :max.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
         $Domos = new domo();
         $Domos-> domo_nombre = $request -> input('nombre');
         $Domos-> domo_estado = $request -> input('estado');
@@ -37,7 +59,7 @@ class DomoController extends Controller
         $Domos-> domo_descripcion = $request -> input('descripcion');
         $Domos-> domo_capacidad = $request -> input('capacidad');
         $Domos-> save();
-        return redirect()->route('domos.index')->with('success', 'Domo creado exitosamente.');
+        return redirect()->route('domos.index')->with('success', 'Domo agregado exitosamente.');
     }
 
     /**

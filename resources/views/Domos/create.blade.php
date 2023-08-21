@@ -1,13 +1,16 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear domos')
+@section('title', 'agrega-domos')
 
 @section('content_header')
-    <h1>Crear Domo</h1>
+    <h1>Domos</h1>
 @stop
 
 @section('content')
     <div class="card">
+        <div class="card-header">
+            <h5>Agrega los domos a la lista</h5>
+        </div>
         <div class="card-body">
             <form action="{{url('domos')}}" method="POST">
                 @csrf
@@ -34,8 +37,8 @@
              </x-adminlte-select2>
         
               {{-- Precio --}}
-        
-                 <x-adminlte-input name="precio" label="Precio" placeholder="Precio del domo" type='number' label-class="text-lightblue" value="{{old('precio')}}">
+
+                 <x-adminlte-input name="precio" label="Precio" placeholder="Precio del domo" type='number' label-class="text-lightblue" value="{{ number_format(old('precio'), 2, '.', ',') }}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-dollar-sign text-lightblue"></i>
@@ -51,6 +54,7 @@
                         </div>
                     </x-slot>
                 </x-adminlte-input>
+
         
                     {{-- Descripcion --}}
                     <x-adminlte-textarea name="descripcion" label="Descripcion" rows=3 label-class="text-lightblue"

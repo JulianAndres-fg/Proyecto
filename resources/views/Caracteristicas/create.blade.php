@@ -46,7 +46,7 @@
 
 {{-- Precio --}}
         
-<x-adminlte-input name="precio" label="Precio" placeholder="Precio de la caracteristica" type='number' label-class="text-lightblue" value="{{old('precio')}}">
+<x-adminlte-input name="precio" label="Precio" placeholder="Precio de la caracteristica" type='number' label-class="text-lightblue" value="{{ number_format(old('precio'), 2, '.', ',') }}">
     <x-slot name="prependSlot">
         <div class="input-group-text">
             <i class="fas fa-dollar-sign text-lightblue"></i>

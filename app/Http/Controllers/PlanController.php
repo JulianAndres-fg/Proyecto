@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\plan;
+use App\Models\domo;
+use App\Models\plane;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
@@ -12,7 +13,17 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
+        $heads = [
+            'Id',
+            'Nombre',
+            'Precio',
+            'Domo',
+            'Estado',
+            'Descripcion'
+        ];
+        $planes = plane::all();
+        $domo = domo::all();
+        return view('planes.index',compact('planes','domo','heads'));
     }
 
     /**
@@ -20,7 +31,8 @@ class PlanController extends Controller
      */
     public function create()
     {
-        //
+        $domos = domo::all();
+        return view('planes.create',compact('domos'));
     }
 
     /**
@@ -28,13 +40,20 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $planes = new plane();
+        $planes-> plan_nombre = $request -> input('nombre');
+        $planes-> plan_precio = $request -> input('precio');
+        $planes-> domo_id = $request -> input('domo');
+        $planes-> plan_estado = $request -> input('estado');
+        $planes-> plan_descripcion = $request -> input('descripcion');
+        $planes-> save();
+        return redirect()->route('planes.index')->with('success', 'Plan creado exitosamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(plan $plan)
+    public function show(plane $plan)
     {
         //
     }
@@ -42,7 +61,7 @@ class PlanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(plan $plan)
+    public function edit(plane $plan)
     {
         //
     }
@@ -50,7 +69,7 @@ class PlanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, plan $plan)
+    public function update(Request $request, plane $plan)
     {
         //
     }
@@ -58,7 +77,7 @@ class PlanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(plan $plan)
+    public function destroy(plane $plan)
     {
         //
     }

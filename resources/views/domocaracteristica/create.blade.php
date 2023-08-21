@@ -17,7 +17,7 @@
         igroup-size="md" data-placeholder="Caracteristica" value="{{old('Caracteristica')}}">
         <x-slot name="prependSlot">
             <div class="input-group-text text-lightblue">
-                <i class="fas fa-check"></i>
+                <i class="fas fa-binoculars"></i>
             </div>
         </x-slot>
         <option>
@@ -32,7 +32,7 @@
     igroup-size="md" data-placeholder="Domo" value="{{old('Domo')}}">
     <x-slot name="prependSlot">
         <div class="input-group-text text-lightblue">
-            <i class="fas fa-check"></i>
+            <i class="fas fa-dungeon"></i>
         </div>
     </x-slot>
     <option>

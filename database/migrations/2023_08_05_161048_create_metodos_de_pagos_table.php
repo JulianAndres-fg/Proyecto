@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('metodos_de_pagos', function (Blueprint $table) {
+        Schema::create('metodo_de_pagos', function (Blueprint $table) {
             $table->increments('metodo_de_pago_cod');
             $table->string('metodo_de_pago_nombre',50);
             $table->timestamps();
