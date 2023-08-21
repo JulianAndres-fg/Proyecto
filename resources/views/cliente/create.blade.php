@@ -43,6 +43,7 @@
     </x-slot>
 </x-adminlte-input>
 
+{{-- Correo --}}
 <x-adminlte-input name="correo" label="Email" placeholder="Correo electronico del cliente" label-class="text-lightblue" value="{{old('correo')}}">
     <x-slot name="prependSlot">
         <div class="input-group-text">
@@ -51,6 +52,7 @@
     </x-slot>
 </x-adminlte-input>
 
+{{-- Celular --}}
 <x-adminlte-input name="celular" type="number" label="Celular" placeholder="Numero celular del cliente" label-class="text-lightblue" value="{{old('celular')}}">
     <x-slot name="prependSlot">
         <div class="input-group-text">
@@ -59,6 +61,7 @@
     </x-slot>
 </x-adminlte-input>
 
+{{-- Fecha --}}
 @php
 $config = ['format' => 'YYYY-MM-DD'];
 @endphp
@@ -69,7 +72,8 @@ $config = ['format' => 'YYYY-MM-DD'];
         </div>
     </x-slot>
 </x-adminlte-input-date>
-        
+    
+{{-- Ciudad --}}
 <x-adminlte-input name="ciudad" label="Ciudad" placeholder="Ciudad de cliente" label-class="text-lightblue" value="{{old('ciudad')}}">
     <x-slot name="prependSlot">
         <div class="input-group-text">
@@ -78,6 +82,7 @@ $config = ['format' => 'YYYY-MM-DD'];
     </x-slot>
 </x-adminlte-input>
 
+{{-- Direccion --}}
 <x-adminlte-input name="direccion" label="Direccion" placeholder="Direccion de cliente" label-class="text-lightblue" value="{{old('direccion')}}">
     <x-slot name="prependSlot">
         <div class="input-group-text">

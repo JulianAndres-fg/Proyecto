@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('planes_ofertas', function (Blueprint $table) {
+        Schema::create('plan_ofertas', function (Blueprint $table) {
             $table->increments('plan_oferta_cod');
             $table->date('plan_oferta_fech_ini');
             $table->date('plan_oferta_fech_fin');

@@ -13,7 +13,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $heads = [
+        $header = [
             'Id',
             'Nombre',
             'Precio',
@@ -23,7 +23,7 @@ class PlanController extends Controller
         ];
         $planes = plane::all();
         $domo = domo::all();
-        return view('planes.index',compact('planes','domo','heads'));
+        return view('planes.index',compact('planes','domo','header'));
     }
 
     /**
