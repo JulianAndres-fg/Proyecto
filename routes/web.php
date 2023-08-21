@@ -30,6 +30,9 @@ use App\Http\Controllers\PermisoRolController;
 //Metodo de pago
 use App\Http\Controllers\MetodoDePagoController;
 
+//reservas
+use App\Models\reserva;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,13 +55,16 @@ Route::resource('domos',DomoController::class);
 //ruta caracteristicas
 Route::resource('caracteristicas',CaracteristicaController::class);
 
+//ruta reservas
+Route::resource('reservas',reserva::class);
+
 //ruta servicios
 Route::resource('servicios',ServicioController::class);
 
 //ruta planes
 Route::resource('planes',PlanController::class);
 
-//ruta planes
+//ruta clientes
 Route::resource('clientes',ClienteController::class);
 
 //ruta domo_caracteristica
@@ -75,6 +81,7 @@ Route::resource('permisoroles',PermisoRolController::class);
 
 //ruta metodos_de_pagos
 Route::resource('metodosdepago',MetodoDePagoController::class);
+
 
 
 

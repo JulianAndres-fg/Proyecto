@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cliente;
 use App\Models\reserva;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ReservaController extends Controller
@@ -12,7 +14,18 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        //
+        $heads = [
+            'Id',
+            'Fecha inicio',
+            'Fecha fin',
+            'Usuario',
+            'Fecha Registro',
+            'Id',
+        ];
+        $Reservas = reserva::all();
+        $Usuarios = User::all();
+        $Clientes = cliente::all();
+        return view('reserva.index',compact('Reservas','Usuarios','Clientes'));
     }
 
     /**

@@ -11,7 +11,7 @@ class reserva extends Model
 
     public function usuario()
         {
-            return $this->belongsTo(usuario::class, 'usuario_id', 'usuario_cedula');
+            return $this->belongsTo(User::class, 'usuario_id', 'id');
         }
     
         public function cliente()

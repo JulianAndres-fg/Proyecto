@@ -489,12 +489,12 @@ return [
             'submenu' => [
                 [
                 'text' => 'Lista reservas',
-                'url'  => '#',            
+                'url'  => 'reservas',            
                 'icon' => 'fas fa-fw fa-list'],
 
                 [
                     'text' => 'Crear reserva',
-                    'url'  => '#',
+                    'url'  => 'reservas/create',
                     'icon' => 'fas fa-fw fa-plus',
                     'label' => 'Nuevo',
                     'label_color' => 'success',
