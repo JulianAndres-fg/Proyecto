@@ -461,7 +461,28 @@ return [
                     'label' => 'Nuevo',
                     'label_color' => 'success',
                 ],
+
+                [
+
+                    'text' => 'Plan oferta',
+                    'icon'    => 'fas fa-fw fa-star',
+                    'submenu' => [
+                        [
+                            'text' => 'Lista plan oferta',
+                            'url'  => 'planoferta',            
+                            'icon' => 'fas fa-fw fa-list',
+                        ],
+
+                        [
+                            'text' => 'Crear plan oferta',
+                            'url'  => 'planoferta/create',            
+                            'icon' => 'fas fa-fw fa-plus',
+                        ], 
+                    ],
+                ],
             ],
+
+
         ],
         
 
@@ -533,6 +554,24 @@ return [
                 [
                     'text' => 'Crear metodo de pago',
                     'url'  => 'metodosdepago/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'label_color' => 'success',
+                ],
+            ],
+        ],
+
+        [
+            'text' => 'Ofertas',
+            'icon' => 'fas fa-fw fa-tag',
+            'submenu' => [
+                [
+                'text' => 'Lista ofertas',
+                'url'  => 'ofertas',
+                'icon' => 'fas fa-fw fa-list'],
+
+                [
+                    'text' => 'Crear oferta',
+                    'url'  => 'ofertas/create',
                     'icon' => 'fas fa-fw fa-plus',
                     'label_color' => 'success',
                 ],

@@ -9,9 +9,9 @@ class planOferta extends Model
 {
     use HasFactory;
 
-    public function plan()
+    public function plane()
         {
-            return $this->belongsTo(plan::class, 'plan_id', 'plan_cod');
+            return $this->belongsTo(plane::class, 'plan_id', 'plan_cod');
         }
 
         public function oferta()

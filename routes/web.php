@@ -30,6 +30,14 @@ use App\Http\Controllers\PermisoRolController;
 //Metodo de pago
 use App\Http\Controllers\MetodoDePagoController;
 
+//Ofertas
+use App\Http\Controllers\OfertaController;
+
+//plan oferta
+use App\Http\Controllers\PlanOfertaController;
+
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,7 +66,7 @@ Route::resource('servicios',ServicioController::class);
 //ruta planes
 Route::resource('planes',PlanController::class);
 
-//ruta planes
+//ruta clientes
 Route::resource('clientes',ClienteController::class);
 
 //ruta domo_caracteristica
@@ -75,6 +83,15 @@ Route::resource('permisoroles',PermisoRolController::class);
 
 //ruta metodos_de_pagos
 Route::resource('metodosdepago',MetodoDePagoController::class);
+
+//ruta ofertas
+Route::resource('ofertas',OfertaController::class);
+
+//ruta plan oferta
+Route::resource('planoferta',PlanOfertaController::class);
+
+
+
 
 
 

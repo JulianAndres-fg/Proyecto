@@ -12,7 +12,13 @@ class OfertaController extends Controller
      */
     public function index()
     {
-        //
+        $Ofertas = oferta::all();
+        $header = [
+            'Id',
+            'Nombre',
+            'Descuento',
+        ];
+        return view('ofertas.index',compact('Ofertas','header'));
     }
 
     /**
@@ -20,7 +26,8 @@ class OfertaController extends Controller
      */
     public function create()
     {
-        //
+        return view('ofertas.create');
+        
     }
 
     /**
@@ -28,7 +35,12 @@ class OfertaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Ofertas = new oferta();
+        $Ofertas-> oferta_nombre = $request -> input('nombre');
+        $Ofertas-> oferta_descuento = $request -> input('descuento');
+        $Ofertas-> save();
+        return redirect()->route('ofertas.index')->with('success', 'Oferta creada exitosamente.');
+        
     }
 
     /**

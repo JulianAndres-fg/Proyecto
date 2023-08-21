@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<x-adminlte-datatable id="table1" :heads="$heads">
+<x-adminlte-datatable id="table1" :heads="$header">
     @foreach ($planes as $plan)
         <tr>
             <td>{{ $plan->plan_cod }}</td>

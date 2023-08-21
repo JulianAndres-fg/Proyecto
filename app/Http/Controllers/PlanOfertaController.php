@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\oferta;
+use App\Models\plane;
 use App\Models\planOferta;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,19 @@ class PlanOfertaController extends Controller
      */
     public function index()
     {
-        //
+        $Plan_ofertas = planOferta::all();
+        $header = [
+            'Id',
+            'Fecha inicio',
+            'Fecha final',
+            'Plan',
+            'Oferta',
+            'Nombre',
+            'Estado',
+        ];
+        $planes = plane::all();
+        $Ofertas = oferta::all();
+        return view('planoferta.index',compact('Plan_ofertas','planes','Ofertas','header'));
     }
 
     /**
@@ -20,7 +34,9 @@ class PlanOfertaController extends Controller
      */
     public function create()
     {
-        //
+        $planes = plane::all();
+        $Ofertas = oferta::all();
+        return view('planoferta.create',compact('planes','Ofertas'));
     }
 
     /**
@@ -28,7 +44,15 @@ class PlanOfertaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Plan_ofertas = new planOferta();
+        $Plan_ofertas->plan_oferta_fech_ini = $request -> input('fechainicial');
+        $Plan_ofertas->plan_oferta_fech_fin = $request -> input('fechafinal');
+        $Plan_ofertas-> plan_id = $request -> input('plan');
+        $Plan_ofertas-> oferta_id = $request -> input('oferta');
+        $Plan_ofertas->plan_oferta_nombre = $request -> input('nombre');
+        $Plan_ofertas->plan_oferta_estado = $request -> input('estado');
+        $Plan_ofertas-> save();
+        return redirect()->route('planoferta.index')->with('success', 'Plan oferta creada exitosamente.');
     }
 
     /**
