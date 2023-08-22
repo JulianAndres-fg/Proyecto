@@ -32,14 +32,19 @@ use App\Http\Controllers\MetodoDePagoController;
 
 //reservas
 use App\Models\reserva;
+
 //Ofertas
 use App\Http\Controllers\OfertaController;
+
+//recomendaciones
+use App\Http\Controllers\RecomendacionController;
+
 
 //plan oferta
 use App\Http\Controllers\PlanOfertaController;
 
-
-
+//reservas
+use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,7 +68,7 @@ Route::resource('domos',DomoController::class);
 Route::resource('caracteristicas',CaracteristicaController::class);
 
 //ruta reservas
-Route::resource('reservas',reserva::class);
+Route::resource('reservas',ReservaController::class);
 
 //ruta servicios
 Route::resource('servicios',ServicioController::class);
@@ -94,6 +99,9 @@ Route::resource('ofertas',OfertaController::class);
 
 //ruta plan oferta
 Route::resource('planoferta',PlanOfertaController::class);
+
+//ruta recomendaciones
+Route::resource('recomendaciones',RecomendacionController::class);
 
 
 

@@ -19,13 +19,17 @@ class ReservaController extends Controller
             'Fecha inicio',
             'Fecha fin',
             'Usuario',
-            'Fecha Registro',
-            'Id',
+            'Fecha registro',
+            'Subtotal',
+            'Descuento',
+            'Iva',
+            'Total',
+            'Cliente'
         ];
-        $Reservas = reserva::all();
-        $Usuarios = User::all();
-        $Clientes = cliente::all();
-        return view('reserva.index',compact('Reservas','Usuarios','Clientes'));
+        $reservas = reserva::all();
+        $usuarios = User::all();
+        $clientes = cliente::all();
+        return view('reservas.index',compact('reservas','usuarios','clientes','heads'));
     }
 
     /**
@@ -33,7 +37,9 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        //
+        $usuarios = User::all();
+        $clientes = cliente::all();
+        return view('reservas.create',compact('usuarios','clientes'));
     }
 
     /**
@@ -41,7 +47,23 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reservas = new reserva();
+        $subtotal = $request->input('subtotal');
+        $descuento = $request->input('descuento');
+        $subtotalConDescuento = $subtotal - ($subtotal * ($descuento / 100));
+        $iva = $subtotalConDescuento * 0.19;
+        $total = $subtotalConDescuento + $iva;
+        $reservas-> reserva_fech_ini = $request -> input('fechaini');
+        $reservas-> reserva_fech_fin = $request -> input('fechafin');
+        $reservas-> usuario_id = $request -> input('usuario');
+        $reservas-> reserva_fech_registro = $request -> input('fechareg');
+        $reservas->reserva_subtotal = $subtotal;
+        $reservas->reserva_descuento = $descuento;
+        $reservas->reserva_iva = $iva;
+        $reservas->reserva_total = $total; 
+        $reservas-> cliente_id = $request -> input('cliente');
+        $reservas-> save();
+        return redirect()->route('reservas.index')->with('success', 'Reserva agregado exitosamente.');
     }
 
     /**

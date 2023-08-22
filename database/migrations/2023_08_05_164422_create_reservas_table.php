@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reservas', function (Blueprint $table) {
-            $table->increments('reserva_cod');
+            $table->increments('reserva_cod'); 
             $table->date('reserva_fech_ini');
             $table->date('reserva_fech_fin');
-            $table->string('usuario_id',20);
-            $table->foreign('usuario_id')->references('usuario_cedula')->on('usuarios');
+            $table->unsignedBigInteger('usuario_id');
+            $table->foreign('usuario_id')->references('id')->on('users');
             $table->date('reserva_fech_registro');
             $table->float('reserva_subtotal');
             $table->float('reserva_descuento');

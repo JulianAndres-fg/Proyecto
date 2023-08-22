@@ -576,7 +576,28 @@ return [
                     'label_color' => 'success',
                 ],
             ],
+            
         ],
+        [
+            'text' => 'Recomendaciones',
+            'icon' => 'fas fa-fw fa-comment',
+            'submenu' => [
+                [
+                'text' => 'Lista recomendaciones',
+                'url'  => 'recomendaciones',
+                'icon' => 'fas fa-fw fa-list'],
+
+                [
+                    'text' => 'Crear recomendacion',
+                    'url'  => 'recomendaciones/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                    'label_color' => 'success',
+                ],
+            ],
+            
+        ],
+
+        
 
         [
             'text'       => 'warning',
@@ -589,6 +610,8 @@ return [
             'url'        => '#',
         ],
     ],
+
+    
         
         [
             'text'       => 'warning',

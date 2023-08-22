@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\recomendacion;
+use App\Models\recomendacione;
+use App\Models\reserva;
 use Illuminate\Http\Request;
 
 class RecomendacionController extends Controller
@@ -12,7 +12,15 @@ class RecomendacionController extends Controller
      */
     public function index()
     {
-        //
+        $header = [
+            'Id',
+            'Descripcion',
+            'Reserva',
+            'Puntaje'
+        ];
+        $recomendaciones = recomendacione::all();
+        $reservas = reserva::all();
+        return view('recomendaciones.index',compact('recomendaciones','reservas','header'));
     }
 
     /**
@@ -20,7 +28,9 @@ class RecomendacionController extends Controller
      */
     public function create()
     {
-        //
+        $recomendaciones = recomendacione::all();
+        $reservas = reserva::all();
+        return view('recomendaciones.create',compact('recomendaciones','reservas'));
     }
 
     /**
@@ -28,13 +38,18 @@ class RecomendacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $recomendaciones = new recomendacione();
+        $recomendaciones-> recomendacion_descripcion = $request -> input('descripcion');
+        $recomendaciones-> reserva_id = $request -> input('reserva');
+        $recomendaciones-> recomendacion_puntaje = $request -> input('puntaje');
+        $recomendaciones-> save();
+        return redirect()->route('recomendaciones.index')->with('success', 'Recomendacion agregada exitosamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(recomendacion $recomendacion)
+    public function show(recomendacione $recomendacion)
     {
         //
     }
@@ -42,7 +57,7 @@ class RecomendacionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(recomendacion $recomendacion)
+    public function edit(recomendacione $recomendacion)
     {
         //
     }
@@ -50,7 +65,7 @@ class RecomendacionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, recomendacion $recomendacion)
+    public function update(Request $request, recomendacione $recomendacion)
     {
         //
     }
@@ -58,7 +73,7 @@ class RecomendacionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(recomendacion $recomendacion)
+    public function destroy(recomendacione $recomendacion)
     {
         //
     }
