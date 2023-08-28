@@ -30,7 +30,7 @@
                     <th scope="row">{{$Servicio->servicio_cod}}</th>
                     <td>{{$Servicio->servicio_nombre}}</td>
                     <td>{{$Servicio->servicio_estado}}</td>
-                    <td>$ {{$Servicio->servicio_precio}}</td>
+                    <td>$ {{ number_format($Servicio->servicio_precio, 0, '.', ',')}}</td>
                     <td>{{$Servicio->servicio_cantidad}}</td>
                   </tr>
                 @endforeach

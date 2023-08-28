@@ -35,6 +35,16 @@ class OfertaController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nombre' => 'required|max:50',
+            'descuento' => 'required|numeric',
+            
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
         $Ofertas = new oferta();
         $Ofertas-> oferta_nombre = $request -> input('nombre');
         $Ofertas-> oferta_descuento = $request -> input('descuento');

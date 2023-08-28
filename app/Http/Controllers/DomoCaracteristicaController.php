@@ -40,11 +40,6 @@ class DomoCaracteristicaController extends Controller
      */
     public function store(Request $request)
     {
-        $Domos_caracteristicas = new domoCaracteristica();
-        $Domos_caracteristicas-> caracteristica_id = $request -> input('caracteristica');
-        $Domos_caracteristicas-> domo_id = $request -> input('Domo');
-        $Domos_caracteristicas-> save();
-        return redirect()->route('domocaracteristicas.index')->with('success', 'Domo Caracteristica creada exitosamente.');
     }
 
     /**

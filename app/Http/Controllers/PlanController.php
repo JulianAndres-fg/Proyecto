@@ -40,6 +40,17 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required|max:50',
+            'precio' => 'required|numeric',
+            'domo' => 'required',
+            'estado' => 'required',
+            'descripcion' => 'required|max:500',
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
         $planes = new plane();
         $planes-> plan_nombre = $request -> input('nombre');
         $planes-> plan_precio = $request -> input('precio');

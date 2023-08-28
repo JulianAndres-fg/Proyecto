@@ -15,10 +15,10 @@ return new class extends Migration
             $table->increments('recibo_caja');
             $table->unsignedInteger('reserva_id');
             $table->foreign('reserva_id')->references('reserva_cod')->on('reservas');
-            $table->float('recibo_caja_subtotal');
+            $table->bigInteger('recibo_caja_subtotal');
             $table->float('recibo_caja_descuento');
-            $table->float('recibo_caja_iva');
-            $table->float('recibo_caja_total');
+            $table->bigInteger('recibo_caja_iva');
+            $table->bigInteger('recibo_caja_total');
             $table->date('recibo_caja_fecha');
             $table->unsignedInteger('metodo_de_pago_id');
             $table->foreign('metodo_de_pago_id')->references('metodo_de_pago_cod')->on('metodo_de_pagos');

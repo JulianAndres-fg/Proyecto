@@ -16,7 +16,7 @@ return new class extends Migration
             $table->char('caracteristica_estado');
             $table->text('caracteristica_descripcion')->nullable();
             $table->string('caracteristica_nombre',50);
-            $table->float('caracteristica_precio');
+            $table->bigInteger('caracteristica_precio');
             $table->timestamps();
         });
     }

@@ -27,6 +27,7 @@ class RolController extends Controller
      */
     public function create()
     {
+        
         return view('roles.create');
         
     }
@@ -36,6 +37,13 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required|max:50',
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
         $Roles = new role();
         $Roles-> rol_nombre = $request -> input('nombre');
         $Roles-> save();

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('planes', function (Blueprint $table) {
             $table->increments('plan_cod');
             $table->string('plan_nombre',50);
-            $table->float('plan_precio');
+            $table->bigInteger('plan_precio');
             $table->unsignedInteger('domo_id');
             $table->foreign('domo_id')->references('domo_cod')->on('domos');
             $table->char('plan_estado');

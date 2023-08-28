@@ -34,6 +34,14 @@ class PermisoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required|max:50',
+
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
         $Permisos = new permiso();
         $Permisos-> permiso_nombre = $request -> input('nombre');
         $Permisos-> save();

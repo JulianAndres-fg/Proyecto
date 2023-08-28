@@ -39,6 +39,27 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'cedula' => 'required|max:20',
+            'nombre' => 'required|max:50',
+            'apellido' => 'required|max:50',
+            'correo' => '|required|email|max:100',
+            'celular' => 'required|numeric',
+            'fechanac' => 'nullable',
+            'ciudad' => 'required|max:50',
+            'direccion' => 'nullable|max:100',
+
+
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+            'email' => 'El campo :attribute debe incluir @',
+            // 'unique' => 'El campo :attribute debe ser único',
+            //agregar validacion maximo para numeros
+
+        ]);
         $Clientes = new cliente();
         $Clientes-> cliente_cedula = $request -> input('cedula');
         $Clientes-> cliente_nombre = $request -> input('nombre');

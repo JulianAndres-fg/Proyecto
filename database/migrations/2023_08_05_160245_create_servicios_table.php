@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('servicio_cod');
             $table->string('servicio_nombre',50);
             $table->char('servicio_estado');
-            $table->float('servicio_precio');
+            $table->bigInteger('servicio_precio');
             $table->integer('servicio_cantidad');
             $table->timestamps();
         });

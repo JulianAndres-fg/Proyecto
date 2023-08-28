@@ -23,7 +23,7 @@
                 <th scope="row">{{$Domo->domo_cod}}</th>
                 <td>{{$Domo->domo_nombre}}</td>
                 <td>{{$Domo->domo_estado}}</td>
-                <td>${{ number_format($Domo->domo_precio, 2, '.', ',') }}</td>
+                <td>${{ number_format($Domo->domo_precio, 0, '.', ',') }}</td>
                 <td>{{$Domo->domo_ubicacion}}</td>
                 <td>{{$Domo->domo_descripcion}}</td>
                 <td>{{$Domo->domo_capacidad}}</td>

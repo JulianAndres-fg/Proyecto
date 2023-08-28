@@ -36,6 +36,16 @@ class CaracteristicaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'estado' => 'required',
+            'descripcion' => 'nullable',
+            'nombre' => 'required',
+            'precio' => 'required|numeric',
+        ],[
+            'required' => 'El campo :attribute es obligatorio.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
+        
         $Caracteristicas = new caracteristica();
         $Caracteristicas-> caracteristica_estado = $request -> input('estado');
         $Caracteristicas-> caracteristica_descripcion = $request -> input('descripcion');

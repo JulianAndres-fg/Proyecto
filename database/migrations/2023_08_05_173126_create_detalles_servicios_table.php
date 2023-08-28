@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('servicio_id')->references('servicio_cod')->on('servicios');
             $table->unsignedInteger('reserva_id');
             $table->foreign('reserva_id')->references('reserva_cod')->on('reservas');
-            $table->float('detalle_servicio_precio');
+            $table->bigInteger('detalle_servicio_precio');
             $table->integer('detalle_servicio_cantidad');
             $table->timestamps();
         });

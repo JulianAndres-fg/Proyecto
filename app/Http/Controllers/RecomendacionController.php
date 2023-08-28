@@ -38,6 +38,15 @@ class RecomendacionController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'descripcion' => 'required|max:500',
+            'reserva' => 'required',
+            'puntaje' => 'required|numeric|max:5',
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
         $recomendaciones = new recomendacione();
         $recomendaciones-> recomendacion_descripcion = $request -> input('descripcion');
         $recomendaciones-> reserva_id = $request -> input('reserva');

@@ -6,6 +6,7 @@ use App\Models\cliente;
 use App\Models\reserva;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ReservaController extends Controller
 {
@@ -37,9 +38,10 @@ class ReservaController extends Controller
      */
     public function create()
     {
+        $fechhoy = Carbon::now()->format('Y-m-d');
         $usuarios = User::all();
         $clientes = cliente::all();
-        return view('reservas.create',compact('usuarios','clientes'));
+        return view('reservas.create',compact('usuarios','clientes','fechhoy'));
     }
 
     /**
@@ -47,6 +49,23 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
+        
+        
+        $request->validate([
+            'fechaini' => 'required|date|after_or_equal:' . Carbon::now()->format('Y-m-d'),
+            'fechafin' => 'required|date|after:fechaini|not_in:' . Carbon::now()->format('Y-m-d'),
+            'usuario' => 'required',
+            'subtotal' => 'required|numeric',
+            'descuento' => 'required|numeric',
+            'cliente' => 'required',
+        ], [
+            'required' => 'El campo es obligatorio.',
+            'date' => 'El formato de la fecha de inicio no es válido.',
+            'after_or_equal' => 'La fecha de inicio debe ser posterior a la fecha de hoy',
+            'after' => 'La fecha final debe ser posterior a la fecha de inicio.',
+            'not_in' => 'La fecha final no puede ser igual a la fecha de hoy.',
+        ]);
+        
         $reservas = new reserva();
         $subtotal = $request->input('subtotal');
         $descuento = $request->input('descuento');
@@ -56,7 +75,7 @@ class ReservaController extends Controller
         $reservas-> reserva_fech_ini = $request -> input('fechaini');
         $reservas-> reserva_fech_fin = $request -> input('fechafin');
         $reservas-> usuario_id = $request -> input('usuario');
-        $reservas-> reserva_fech_registro = $request -> input('fechareg');
+        $reservas->reserva_fech_registro = Carbon::now()->format('Y-m-d');
         $reservas->reserva_subtotal = $subtotal;
         $reservas->reserva_descuento = $descuento;
         $reservas->reserva_iva = $iva;

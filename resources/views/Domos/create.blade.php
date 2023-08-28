@@ -38,7 +38,7 @@
         
               {{-- Precio --}}
 
-                 <x-adminlte-input name="precio" label="Precio" placeholder="Precio del domo" type='number' label-class="text-lightblue" value="{{ number_format(old('precio'), 2, '.', ',') }}">
+                 <x-adminlte-input name="precio" label="Precio" placeholder="Precio del domo" type='number' label-class="text-lightblue" value="{{old('precio')}}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-dollar-sign text-lightblue"></i>
@@ -79,6 +79,46 @@
                 {{-- botones --}}
                 <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
                 <a href="{{route('domos.index')}}" class="btn btn-secondary m-3 float-right">Volver</a>
+
+                <button type="button" class="btn btn-primary m-3 float-right" data-toggle="modal" data-target="#caracteristicasModal">
+                    Seleccionar Características
+                </button>
+
+                <div class="modal fade" id="caracteristicasModal" tabindex="-1" role="dialog"
+                aria-labelledby="caracteristicasModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="caracteristicasModalLabel">Seleccionar Características</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{-- Formulario para características --}}
+                            <form id="caracteristicasForm" action="{{url('domos')}}" method="post">
+                                @csrf
+                                @foreach ($caracteristicas as $caracteristica)
+                                @if ($caracteristica->caracteristica_estado == 'A')
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="selectedCaracteristicas[]"
+                                        value="{{ $caracteristica->caracteristica_cod }}">
+                                    <label
+                                        class="form-check-label">{{ $caracteristica->caracteristica_nombre }}</label>
+                                </div>
+                                @endif
+                                @endforeach
+                                <input type="hidden" id="selectedCaracteristicasInput" name="selectedCaracteristicas[]">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary"
+                                onclick="submitCaracteristicasForm();">Guardar Cambios</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </form>
         </div>
     </div>
@@ -89,5 +129,17 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+<script>
+    function submitCaracteristicasForm() {
+     let selectedCaracteristicas = $('input[name="selectedCaracteristicas[]"]:checked').map(function () {
+         return $(this).val();
+     }).get();
+ 
+     $('#selectedCaracteristicasInput').val(selectedCaracteristicas);
+     console.log(selectedCaracteristicas);
+ 
+     $('#caracteristicasModal').modal('hide');
+ }
+ 
+     </script>
 @stop

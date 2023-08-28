@@ -16,7 +16,6 @@
         </tr>
     @endforeach
 </x-adminlte-datatable>
-<a href="{{route('domocaracteristicas.create')}}" class="btn btn-success btn-lg float-right">Crear domo_caracteristica</a>
 
 @stop
 

@@ -29,6 +29,16 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required|max:50',
+            'estado' => 'required',
+            'precio' => 'required|numeric',
+            'cantidad' => 'required|numeric',
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
         $Servicios = new servicio();
         $Servicios-> servicio_nombre = $request -> input('nombre');
         $Servicios-> servicio_estado = $request -> input('estado');

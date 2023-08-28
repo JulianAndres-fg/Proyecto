@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear caracteristicas')
+@section('title', 'Crear reserva')
 
 @section('content_header')
     <h1>Agregar reserva</h1>
@@ -20,7 +20,7 @@
                     $config = ['format' => 'YYYY-MM-DD'];
                 @endphp
                 <x-adminlte-input-date name="fechaini" label="Fecha inicio reserva" label-class="text-lightblue" :config="$config"
-                    placeholder="Seleccione la fecha de inicio de reserva..">
+                    placeholder="Seleccione la fecha de inicio de reserva.." value="{{old('fechaini')}}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text text-lightblue">
                             <i class="fas fa-calendar"></i>
@@ -33,7 +33,7 @@
                     $config = ['format' => 'YYYY-MM-DD'];
                 @endphp
                 <x-adminlte-input-date name="fechafin" label="Fecha fin reserva" label-class="text-lightblue" :config="$config"
-                    placeholder="Seleccione la fecha de fin de reserva..">
+                    placeholder="Seleccione la fecha de fin de reserva.." value="{{old('fechafin')}}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text text-lightblue">
                             <i class="fas fa-calendar"></i>
@@ -59,7 +59,7 @@
             {{-- fecha registro --}}
 
             <x-adminlte-input-date name="fechareg" label="Fecha de registro reserva" label-class="text-lightblue" :config="$config"
-            placeholder="Seleccione la fecha de registro de la reserva..">
+            placeholder="Seleccione la fecha de registro de la reserva.." :value="$fechhoy" :disabled="true">
             <x-slot name="prependSlot">
                 <div class="input-group-text text-lightblue">
                     <i class="fas fa-calendar"></i>
@@ -69,7 +69,7 @@
 
           {{-- Precio --}}
 
-          <x-adminlte-input name="subtotal" label="Subtotal" placeholder="Subtotal de la reserva" type='number' label-class="text-lightblue" value="{{ number_format(old('subtotal'), 2, '.', ',') }}">
+          <x-adminlte-input name="subtotal" label="Subtotal" placeholder="Subtotal de la reserva" type='number' label-class="text-lightblue" value="{{old('subtotal')}}">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
                     <i class="fas fa-dollar-sign text-lightblue"></i>

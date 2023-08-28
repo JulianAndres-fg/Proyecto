@@ -8,27 +8,36 @@
 
 @section('content')
 
-@if(session('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('success') }}
-</div>
-@endif
-<div class="card">
-    <div class="card-body">
-        <x-adminlte-datatable id="table1" :heads="$heads">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+    <div class="card">
+        <div class="card-header">
+            <h5>Lista caracteristicas</h5>
+        </div>
+        <div class="card-body">
+            <x-adminlte-datatable id="table1" :heads="$heads">
                 @foreach ($Caracteristicas as $Caracteristica)
-                <tr>
-                    <th>{{$Caracteristica->caracteristica_cod}}</th>
-                    <td>{{$Caracteristica->caracteristica_estado}}</td>
-                    <td>{{$Caracteristica->caracteristica_descripcion}}</td>
-                    <td>{{$Caracteristica->caracteristica_nombre}}</td>
-                    <td>$ {{number_format($Caracteristica->caracteristica_precio, 2, '.', ',')}}</td>
-                  </tr>
+                    <tr>
+                        <th>{{ $Caracteristica->caracteristica_cod }}</th>
+                        <td>{{ $Caracteristica->caracteristica_estado }}</td>
+                        <td>
+                            @if ($Caracteristica->caracteristica_descripcion)
+                                {{$Caracteristica->caracteristica_descripcion}}
+                            @else
+                                Ninguna descripcion
+                            @endif
+                        </td>
+                        <td>{{ $Caracteristica->caracteristica_nombre }}</td>
+                        <td>$ {{ number_format($Caracteristica->caracteristica_precio, 0, '.', ',') }}</td>
+                    </tr>
                 @endforeach
-        </x-adminlte-datatable>
+            </x-adminlte-datatable>
+        </div>
     </div>
-</div>
-<a href="{{route('caracteristicas.create')}}" class="btn btn-success btn-lg float-right">Crear caracteristica</a>
+    <a href="{{ route('caracteristicas.create') }}" class="btn btn-success btn-lg float-right">Crear caracteristica</a>
 @stop
 
 @section('css')
@@ -36,9 +45,7 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+        console.log('Hi!');
+    </script>
 @stop
-
-
-
-

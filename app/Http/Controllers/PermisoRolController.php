@@ -40,6 +40,14 @@ class PermisoRolController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'permiso' => 'required',
+            'rol' => 'required',
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
         $Permisos_Roles = new permisoRole();
         $Permisos_Roles-> permiso_id = $request -> input('permiso');
         $Permisos_Roles-> rol_id = $request -> input('rol');

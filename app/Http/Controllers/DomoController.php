@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\caracteristica;
 use App\Models\domo;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,8 @@ class DomoController extends Controller
      */
     public function create()
     {
-        return view('domos.create');
+        $caracteristicas = caracteristica::all();
+        return view('domos.create',compact('caracteristicas'));
     }
 
     /**
@@ -59,6 +61,11 @@ class DomoController extends Controller
         $Domos-> domo_descripcion = $request -> input('descripcion');
         $Domos-> domo_capacidad = $request -> input('capacidad');
         $Domos-> save();
+        $selectedCaracteristicas = $request->input('selectedCaracteristicas');
+        if ($selectedCaracteristicas) {
+            $caracteristicaCodArray = caracteristica::whereIn('caracteristica_cod', $selectedCaracteristicas)->pluck('caracteristica_cod')->toArray();
+            $Domos->caracteristicas()->sync($caracteristicaCodArray);
+        }
         return redirect()->route('domos.index')->with('success', 'Domo agregado exitosamente.');
     }
 

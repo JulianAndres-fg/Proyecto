@@ -12,7 +12,7 @@
         <tr>
             <td>{{ $plan->plan_cod }}</td>
             <td>{{ $plan->plan_nombre }}</td>
-            <td>$ {{ $plan->plan_precio }}</td>
+            <td>$ {{ number_format($plan->plan_precio, 0, '.', ',') }}</td>
             <td>{{ $plan->domo->domo_nombre }}</td>
             <td>{{ $plan->plan_estado }}</td>
             <td>{{ $plan->plan_descripcion }}</td>

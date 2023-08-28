@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('reserva_id');
             $table->foreign('reserva_id')->references('reserva_cod')->on('reservas');
             $table->text('detalle_domo_descripcion');
-            $table->float('detalle_domo_precio');
+            $table->bigInteger('detalle_domo_precio');
             $table->timestamps();
         });
     }

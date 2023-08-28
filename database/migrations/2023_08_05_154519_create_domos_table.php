@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('domo_cod',50);
             $table->string('domo_nombre');
             $table->char('domo_estado');
-            $table->float('domo_precio');
+            $table->bigInteger('domo_precio');
             $table->string('domo_ubicacion',50);
             $table->text('domo_descripcion');
             $table->string('domo_capacidad',20);

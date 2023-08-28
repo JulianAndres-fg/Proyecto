@@ -18,10 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('users');
             $table->date('reserva_fech_registro');
-            $table->float('reserva_subtotal');
+            $table->bigInteger('reserva_subtotal');
             $table->float('reserva_descuento');
-            $table->float('reserva_iva');
-            $table->float('reserva_total');
+            $table->bigInteger('reserva_iva');
+            $table->bigInteger('reserva_total');
             $table->string('cliente_id');
             $table->foreign('cliente_id')->references('cliente_cedula')->on('clientes');
             $table->timestamps();

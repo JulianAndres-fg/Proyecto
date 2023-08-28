@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('plan_id')->references('plan_cod')->on('planes');
             $table->unsignedInteger('reserva_id');
             $table->foreign('reserva_id')->references('reserva_cod')->on('reservas');
-            $table->float('detalle_plan_precio');
+            $table->bigInteger('detalle_plan_precio');
             $table->timestamps();
         });
     }

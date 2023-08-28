@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\oferta;
 use App\Models\plane;
 use App\Models\planOferta;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PlanOfertaController extends Controller
@@ -44,6 +45,23 @@ class PlanOfertaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'fechainicial' => 'required|date|after_or_equal:' . Carbon::now()->format('Y-m-d'),
+            'fechafinal' => 'required|date|after:fechaini|not_in:' . Carbon::now()->format('Y-m-d'),
+            'plan' => 'required',
+            'oferta' => 'required',
+            'nombre' => 'required|max:50',
+            'estado' => 'required',
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+            'date' => 'El formato de la fecha de inicio no es válido.',
+            'after_or_equal' => 'La fecha de inicio debe ser posterior a la fecha de hoy',
+            'after' => 'La fecha final debe ser posterior a la fecha de inicio.',
+            'not_in' => 'La fecha final no puede ser igual a la fecha de hoy.',
+            
+        ]);
         $Plan_ofertas = new planOferta();
         $Plan_ofertas->plan_oferta_fech_ini = $request -> input('fechainicial');
         $Plan_ofertas->plan_oferta_fech_fin = $request -> input('fechafinal');

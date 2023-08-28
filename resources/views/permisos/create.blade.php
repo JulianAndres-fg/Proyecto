@@ -13,7 +13,7 @@
         @csrf
 
   {{-- Nombre --}}
-<x-adminlte-input name="nombre" label="Nombre" placeholder="Nombre del rol" label-class="text-lightblue" value="{{old('nombre')}}">
+<x-adminlte-input name="nombre" label="Nombre" placeholder="Nombre del permiso" label-class="text-lightblue" value="{{old('nombre')}}">
     <x-slot name="prependSlot">
         <div class="input-group-text">
             <i class="fas fa-list text-lightblue"></i>
