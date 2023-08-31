@@ -192,9 +192,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-info elevation-4',
+    'classes_sidebar' => 'sidebar-dark-info elevation-2',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-info navbar-dark',
+    'classes_topnav' => 'navbar-primary navbar-dark',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -435,11 +435,7 @@ return [
                             'url'  => 'domocaracteristicas',            
                             'icon' => 'fas fa-fw fa-list',
                         ],
-                        [
-                            'text' => 'Crear domo caracteristica',
-                            'url'  => 'domocaracteristicas/create',            
-                            'icon' => 'fas fa-fw fa-plus',
-                        ], 
+                        
                     ],
                 ],    
             ],
@@ -472,12 +468,7 @@ return [
                             'url'  => 'planoferta',            
                             'icon' => 'fas fa-fw fa-list',
                         ],
-
-                        [
-                            'text' => 'Crear plan oferta',
-                            'url'  => 'planoferta/create',            
-                            'icon' => 'fas fa-fw fa-plus',
-                        ], 
+ 
                     ],
                 ],
             ],
@@ -539,6 +530,9 @@ return [
                     'label' => 'Nuevo',
                     'label_color' => 'success',
                 ],
+                [
+                    'edit_url' => 'clientes/edit/{id}',
+                ],
             ],
         ],
 
@@ -556,6 +550,9 @@ return [
                     'url'  => 'metodosdepago/create',
                     'icon' => 'fas fa-fw fa-plus',
                     'label_color' => 'success',
+                ],
+                [
+                    'edit_url' => 'metodosdepago/edit/{id}',
                 ],
             ],
         ],

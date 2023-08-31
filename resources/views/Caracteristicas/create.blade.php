@@ -9,7 +9,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h5>Agrega Caracteristica</h5>
+        <h5>Agrega caracteristica a la lista</h5>
     </div>
     <div class="card-body">
         <form action="{{url('caracteristicas')}}" method="POST">

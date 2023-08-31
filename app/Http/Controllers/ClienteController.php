@@ -21,6 +21,7 @@ class ClienteController extends Controller
             'Fecha de nacimiento',
             'Ciudad',
             'Direccion',
+            'Acciones',
         ];
          $Clientes = cliente::all();
          return view('cliente.index',compact('heads','Clientes'));
@@ -84,17 +85,49 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(cliente $cliente)
+    public function edit($cliente_cedula)
     {
-        //
+        $Clientes = cliente::find($cliente_cedula);
+      return view('cliente.edit',compact('Clientes'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, cliente $cliente)
+    public function update(Request $request, $cliente_cedula)
     {
-        //
+        $request->validate([
+            'cedula' => 'required|max:20',
+            'nombre' => 'required|max:50',
+            'apellido' => 'required|max:50',
+            'correo' => '|required|email|max:100',
+            'celular' => 'required|numeric',
+            'fechanac' => 'nullable',
+            'ciudad' => 'required|max:50',
+            'direccion' => 'nullable|max:100',
+
+
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+            'email' => 'El campo :attribute debe incluir @',
+            // 'unique' => 'El campo :attribute debe ser único',
+            //agregar validacion maximo para numeros
+
+        ]);
+        $Clientes = cliente::find($cliente_cedula);
+        $Clientes-> cliente_cedula = $request -> input('cedula');
+        $Clientes-> cliente_nombre = $request -> input('nombre');
+        $Clientes-> cliente_apellido = $request -> input('apellido');
+        $Clientes-> cliente_correo = $request -> input('correo');
+        $Clientes-> cliente_celular = $request -> input('celular');
+        $Clientes-> cliente_fech_nac = $request -> input('fechanac');
+        $Clientes-> cliente_ciudad = $request -> input('ciudad');
+        $Clientes-> cliente_direccion = $request -> input('direccion');
+        $Clientes-> update();
+        return redirect()->route('clientes.index')->with('success', 'Cliente actualizado exitosamente.');
+    
     }
 
     /**

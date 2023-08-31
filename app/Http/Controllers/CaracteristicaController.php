@@ -66,17 +66,34 @@ class CaracteristicaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(caracteristica $caracteristica)
+    public function edit($caracteristica_cod)
     {
-        //
+        $Caracteristicas = caracteristica::find($caracteristica_cod);
+      return view('Caracteristicas.edit',compact('Caracteristicas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, caracteristica $caracteristica)
+    public function update(Request $request,$caracteristica_cod)
     {
-        //
+        $request->validate([
+            'estado' => 'required',
+            'descripcion' => 'nullable',
+            'nombre' => 'required',
+            'precio' => 'required|numeric',
+        ],[
+            'required' => 'El campo :attribute es obligatorio.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ]);
+        
+        $Caracteristicas = caracteristica::find($caracteristica_cod);
+        $Caracteristicas-> caracteristica_estado = $request -> input('estado');
+        $Caracteristicas-> caracteristica_descripcion = $request -> input('descripcion');
+        $Caracteristicas-> caracteristica_nombre = $request -> input('nombre');
+        $Caracteristicas-> caracteristica_precio = $request -> input('precio');
+        $Caracteristicas-> update();
+        return redirect()->route('caracteristicas.index')->with('success', 'Caracteristica actualizada exitosamente.');
     }
 
     /**

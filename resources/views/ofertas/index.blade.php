@@ -12,7 +12,7 @@
         <tr>
         <td>{{$Oferta ->oferta_cod}}</td>
         <td>{{$Oferta ->oferta_nombre}}</td>
-        <td>{{$Oferta->oferta_descuento}}</td>
+        <td>{{$Oferta->oferta_descuento}}%</td>
         </tr>
     @endforeach
 </x-adminlte-datatable>

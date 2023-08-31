@@ -32,6 +32,9 @@
                         </td>
                         <td>{{ $Caracteristica->caracteristica_nombre }}</td>
                         <td>$ {{ number_format($Caracteristica->caracteristica_precio, 0, '.', ',') }}</td>
+                        <td>
+                            <a href="{{route('caracteristicas.edit',$Caracteristica->caracteristica_cod)}}" title="Edit" class="btn btn-xs btn-default text-primary mx-1 shadow"> <i class="fa fa-lg fa-fw fa-pen"></i></a>
+                       </td>
                     </tr>
                 @endforeach
             </x-adminlte-datatable>

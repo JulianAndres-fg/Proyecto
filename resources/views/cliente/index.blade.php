@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Clientes')
 
 @section('content_header')
     <h1>Lista clientes</h1>
@@ -18,6 +18,9 @@
             <td>{{ $Cliente->cliente_fech_nac }}</td>
             <td>{{ $Cliente->cliente_ciudad }}</td>
             <td>{{ $Cliente->cliente_direccion }}</td>
+            <td>
+                <a href="{{route('clientes.edit',$Cliente->cliente_cedula)}}" title="Edit" class="btn btn-xs btn-default text-primary mx-1 shadow"> <i class="fa fa-lg fa-fw fa-pen"></i></a>
+            </td>
         </tr>
     @endforeach
 </x-adminlte-datatable>

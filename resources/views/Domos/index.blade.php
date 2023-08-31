@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Lista-domos')
+@section('title', 'Domos')
 
 @section('content_header')
     <h1>Domos</h1>
@@ -10,6 +10,12 @@
 @if(session('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ session('success') }}
+</div>
+@endif
+
+@if(session('update'))
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+    {{ session('update') }}
 </div>
 @endif
 <div class="card">
@@ -27,6 +33,9 @@
                 <td>{{$Domo->domo_ubicacion}}</td>
                 <td>{{$Domo->domo_descripcion}}</td>
                 <td>{{$Domo->domo_capacidad}}</td>
+                <td>
+                     <a href="{{route('domos.edit',$Domo->domo_cod)}}" title="Edit" class="btn btn-xs btn-default text-primary mx-1 shadow"> <i class="fa fa-lg fa-fw fa-pen"></i></a>
+                </td>
               </tr>
             @endforeach
         </x-adminlte-datatable>

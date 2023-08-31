@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'agrega-domos')
+@section('title', 'Crear domos')
 
 @section('content_header')
     <h1>Domos</h1>

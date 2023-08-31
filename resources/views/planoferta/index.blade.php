@@ -20,7 +20,6 @@
         </tr>
     @endforeach
 </x-adminlte-datatable>
-<a href="{{route('planoferta.create')}}" class="btn btn-success btn-lg float-right">Crear plan oferta</a>
 
 @stop
 
