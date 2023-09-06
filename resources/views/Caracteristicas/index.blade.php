@@ -12,10 +12,14 @@
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
         </div>
-    @endif
+    @endif  @if (session('update'))
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        {{ session('update') }}
+    </div>
+@endif
     <div class="card">
         <div class="card-header">
-            <h5>Lista caracteristicas</h5>
+            <h5>Lista de caracteristicas</h5>
         </div>
         <div class="card-body">
             <x-adminlte-datatable id="table1" :heads="$heads">

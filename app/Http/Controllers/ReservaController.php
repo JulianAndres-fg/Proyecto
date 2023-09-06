@@ -10,6 +10,9 @@ use Carbon\Carbon;
 
 class ReservaController extends Controller
 {
+    public function __construct() {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      */
@@ -82,7 +85,7 @@ class ReservaController extends Controller
         $reservas->reserva_total = $total; 
         $reservas-> cliente_id = $request -> input('cliente');
         $reservas-> save();
-        return redirect()->route('reservas.index')->with('success', 'Reserva agregado exitosamente.');
+        return redirect()->route('reservas.index')->with('success', 'Reserva agregada exitosamente.');
     }
 
     /**

@@ -12,30 +12,28 @@
     {{ session('success') }}
 </div>
 @endif
+
+@if (session('update'))
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+    {{ session('update') }}
+</div>
+@endif
 <div class="card">
     <div class="card-body">
-        <table id="servicio" class="table table-striped text-center">
-            <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Cantidad</th>
+        <x-adminlte-datatable id="table1" :heads="$header" head-theme="bg-secondary">
+            @foreach ($Servicios as $Servicio)
+            <tr>
+                <th scope="row">{{$Servicio->servicio_cod}}</th>
+                <td>{{$Servicio->servicio_nombre}}</td>
+                <td>{{$Servicio->servicio_estado}}</td>
+                <td>$ {{ number_format($Servicio->servicio_precio, 0, '.', ',')}}</td>
+                <td>{{$Servicio->servicio_cantidad}}</td>
+                <td>
+                    <a href="{{route('servicios.edit',$Servicio->servicio_cod)}}" title="Edit" class="btn btn-xs btn-default text-primary mx-1 shadow"> <i class="fa fa-lg fa-fw fa-pen"></i></a>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-                @foreach ($Servicios as $Servicio)
-                <tr>
-                    <th scope="row">{{$Servicio->servicio_cod}}</th>
-                    <td>{{$Servicio->servicio_nombre}}</td>
-                    <td>{{$Servicio->servicio_estado}}</td>
-                    <td>$ {{ number_format($Servicio->servicio_precio, 0, '.', ',')}}</td>
-                    <td>{{$Servicio->servicio_cantidad}}</td>
-                  </tr>
-                @endforeach
-            </tbody>
-          </table>
+            @endforeach
+        </x-adminlte-datatable>
     </div>
 </div>
 <a href="{{route('servicios.create')}}" class="btn btn-success btn-lg float-right">Crear servicio</a>
@@ -43,15 +41,8 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @stop
 
 @section('js')
     <script> console.log('Hi!'); </script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-           new DataTable('#servicio');
-    </script>
 @stop

@@ -16,11 +16,11 @@
                 @csrf
                 @method('PUT')
                 {{-- Nombre --}}
-                <x-adminlte-input name="nombre" label="Nombre" placeholder="Nombre del metodo de pago"
+                <x-adminlte-input name="nombre" label="Nombre" placeholder="Nombre del domo"
                     label-class="text-lightblue" value="{{ $Domos->domo_nombre }}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
-                            <i class="fas fa-list text-lightblue"></i>
+                            <i class="fas fa-dungeon text-lightblue"></i>
                         </div>
                     </x-slot>
                 </x-adminlte-input>

@@ -3,7 +3,7 @@
 @section('title', 'Planes')
 
 @section('content_header')
-    <h1>planes</h1>
+    <h1>Planes</h1>
 @stop
 
 @section('content')
@@ -29,9 +29,9 @@
                 </tr>
             @endforeach
         </x-adminlte-datatable>
-        <a href="{{route('planes.create')}}" class="btn btn-success btn-lg float-right">Crear plan</a>
     </div>
 </div>
+<a href="{{route('planes.create')}}" class="btn btn-success btn-lg float-right">Crear plan</a>
 
 @stop
 

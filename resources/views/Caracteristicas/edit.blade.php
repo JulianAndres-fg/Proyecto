@@ -27,6 +27,7 @@
              @if ($Caracteristicas->caracteristica_estado == "A")
              <option selected>A</option>
              <option>I</option>
+        
 
 
              @else ($Caracteristicas->caracteristica_estado == "I")
@@ -60,7 +61,7 @@
 
 {{-- Precio --}}
  
-<x-adminlte-input name="precio" label="Precio" placeholder="Precio del domo" type='number'
+<x-adminlte-input name="precio" label="Precio" placeholder="Precio de la caracteristica" type='number'
          label-class="text-lightblue" value="{{ $Caracteristicas->caracteristica_precio }}">
          <x-slot name="prependSlot">
              <div class="input-group-text">
@@ -74,7 +75,7 @@
         
         {{-- botones --}}
         <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Actualizar" theme="primary" icon="fas fa-lg fa-save"/>
-        <a href="{{route('metodosdepago.index')}}" class="btn btn-secondary m-3 float-right">Volver</a>
+        <a href="{{route('caracteristicas.index')}}" class="btn btn-secondary m-3 float-right">Volver</a>
         
         
         

@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h5>Agrega los domos a la lista</h5>
+            <h5>Agrega domos a la lista</h5>
         </div>
         <div class="card-body">
             <form action="{{url('domos')}}" method="POST">
@@ -24,16 +24,16 @@
                 </x-adminlte-input>
         
                  {{-- Estado --}}
-                 <x-adminlte-select2 name="estado" label="Estado" label-class="text-lightblue"
-                 igroup-size="md" data-placeholder="Estado" value="{{old('estado')}}">
+                 <x-adminlte-select2 name="estado" label="Estado del domo" label-class="text-lightblue"
+                 igroup-size="md" data-placeholder="Estado del domo" value="{{old('estado')}}">
                  <x-slot name="prependSlot">
                      <div class="input-group-text text-lightblue">
                          <i class="fas fa-check"></i>
                      </div>
                  </x-slot>
                  <option>
-                 <option>A</option>
-                 <option>I</option>
+                 <option value="A" @if (old('estado') == 'A')  selected @endif>A</option>
+                 <option value="I" @if (old('estado') == 'I')  selected @endif>I</option>
              </x-adminlte-select2>
         
               {{-- Precio --}}
@@ -53,17 +53,19 @@
                             <i class="fas fa-mountain text-lightblue"></i>
                         </div>
                     </x-slot>
+                    
                 </x-adminlte-input>
 
         
                     {{-- Descripcion --}}
-                    <x-adminlte-textarea name="descripcion" label="Descripcion" rows=3 label-class="text-lightblue"
+                    <x-adminlte-textarea name="descripcion" label="Descripcion del domo" rows=3 label-class="text-lightblue"
                     igroup-size="sm" placeholder="Añade una descripción..." value="{{old('descripcion')}}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-light">
                             <i class="fas fa-lg fa-file-alt text-lightblue"></i>
                         </div>
                     </x-slot>
+                    {{ old('descripcion') }}
                 </x-adminlte-textarea>
                 
                 {{-- Capacidad --}}
@@ -119,6 +121,8 @@
                     </div>
                 </div>
             </div>
+
+            
             </form>
         </div>
     </div>

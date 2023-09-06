@@ -7,13 +7,24 @@ use Illuminate\Http\Request;
 
 class ServicioController extends Controller
 {
+    public function __construct() {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $header = [
+            'Id',
+            'Nombre',
+            'Estado',
+            'Precio',
+            'Cantidad',
+            'Acciones',
+        ];
         $Servicios = servicio::all();
-        return view('servicios.index',compact('Servicios'));
+        return view('servicios.index',compact('Servicios','header'));
     }
 
     /**
@@ -45,7 +56,7 @@ class ServicioController extends Controller
         $Servicios-> servicio_precio = $request -> input('precio');
         $Servicios-> servicio_cantidad = $request -> input('cantidad');
         $Servicios-> save();
-        return redirect()->route('servicios.index')->with('success', 'Servicio creado exitosamente.');
+        return redirect()->route('servicios.index')->with('success', 'Servicio agregado exitosamente.');
     }
 
     /**
@@ -59,17 +70,40 @@ class ServicioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(servicio $servicio)
+    public function edit($servicio_cod)
     {
-        //
+        $Servicios = servicio::find($servicio_cod);
+        return view('servicios.edit',compact('Servicios'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, servicio $servicio)
+    public function update(Request $request, $servicio_cod)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:50',
+            'estado' => 'required',
+            'precio' => 'required|numeric',
+            'cantidad' => 'required|numeric|max:100000',
+
+
+
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+            // 'unique' => 'El campo :attribute debe ser único',
+            //agregar validacion maximo para numeros
+
+        ]);
+        $Servicios = servicio::find($servicio_cod);
+        $Servicios-> servicio_nombre = $request -> input('nombre');
+        $Servicios-> servicio_estado = $request -> input('estado');
+        $Servicios-> servicio_precio = $request -> input('precio');
+        $Servicios-> servicio_cantidad = $request -> input('cantidad');
+        $Servicios-> update();
+        return redirect()->route('servicios.index')->with('update', 'Servicio actualizado exitosamente.');
     }
 
     /**

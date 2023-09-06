@@ -7,6 +7,11 @@
 @stop
 
 @section('content')
+@if (session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+</div>
+@endif
 <div class="card">
     <div class="card-header">
         <h5>Lista de las reservas</h5>
@@ -29,11 +34,10 @@
                 </tr>
             @endforeach
         </x-adminlte-datatable>
-        <a href="{{route('reservas.create')}}" class="btn btn-success btn-lg float-right">Crear reserva</a>
 
     </div>
 </div>
-
+<a href="{{route('reservas.create')}}" class="btn btn-success btn-lg float-right">Crear Reservas</a>
 @stop
 
 @section('css')

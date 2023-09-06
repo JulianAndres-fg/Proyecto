@@ -3,12 +3,16 @@
 @section('title', 'Crear Metodos de pago')
 
 @section('content_header')
-    <h1>Crear Metodo de pago</h1>
+    <h1>Metodos de pago</h1>
 @stop
 
 @section('content')
-    <p>Metodos de pago</p>
+<div class="card">
 
+<div class="card-header">
+    <h5>Agregar metodos de pago a la lista</h5>
+</div>
+<div class="card-body">
     <form action="{{url('metodosdepago')}}" method="POST">
         @csrf
 
@@ -26,11 +30,16 @@
 
 {{-- botones --}}
 <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
-<a href="{{route('roles.index')}}" class="btn btn-secondary m-3 float-right">Volver</a>
+<a href="{{route('metodosdepago.index')}}" class="btn btn-secondary m-3 float-right">Volver</a>
 
 
 
     </form>
+</div>
+
+</div>
+
+    
 @stop
 
 @section('css')

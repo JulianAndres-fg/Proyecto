@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class CaracteristicaController extends Controller
 {
+    public function __construct() {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      */
@@ -17,7 +20,8 @@ class CaracteristicaController extends Controller
             'Estado',
             'Descripcion',
             'Nombre',
-            'Precio'
+            'Precio',
+            'Acciones',
         ];
         $Caracteristicas = caracteristica::all();
         return view('caracteristicas.index',compact('Caracteristicas','heads'));
@@ -52,7 +56,7 @@ class CaracteristicaController extends Controller
         $Caracteristicas-> caracteristica_nombre = $request -> input('nombre');
         $Caracteristicas-> caracteristica_precio = $request -> input('precio');
         $Caracteristicas-> save();
-        return redirect()->route('caracteristicas.index')->with('success', 'Caracteristica creada exitosamente.');
+        return redirect()->route('caracteristicas.index')->with('success', 'Caracteristica agregada exitosamente.');
     }
 
     /**
@@ -93,7 +97,7 @@ class CaracteristicaController extends Controller
         $Caracteristicas-> caracteristica_nombre = $request -> input('nombre');
         $Caracteristicas-> caracteristica_precio = $request -> input('precio');
         $Caracteristicas-> update();
-        return redirect()->route('caracteristicas.index')->with('success', 'Caracteristica actualizada exitosamente.');
+        return redirect()->route('caracteristicas.index')->with('update', 'Caracteristica actualizada exitosamente.');
     }
 
     /**

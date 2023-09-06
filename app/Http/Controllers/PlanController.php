@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\domo;
 use App\Models\oferta;
 use App\Models\plane;
+use App\Models\servicio;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {
+    public function __construct() {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,73 +38,53 @@ class PlanController extends Controller
     public function create()
     {
         $fechhoy = Carbon::now()->format('Y-m-d');
+        $servicios = servicio::all(); 
         $ofertas = oferta::all();
         $domos = domo::all();
-        return view('planes.create', compact('domos', 'ofertas'));
+        return view('planes.create', compact('domos', 'ofertas','servicios'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|max:50',
-            'precio' => 'required|numeric',
-            'domo' => 'required',
-            'estado' => 'required',
-            'descripcion' => 'required',
-        ], [
-            'required' => 'El campo :attribute es obligatorio.',
-            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
-            'numeric' => 'El campo :attribute debe ser numérico.',
-            'after_or_equal' => 'La fecha de inicio debe ser posterior a la fecha de hoy',
-            'after' => 'La fecha final debe ser posterior a la fecha de inicio.',
-            'not_in' => 'La fecha final no puede ser igual a la fecha de hoy.',
-        ]);
-   
-        $planes = new plane();
-        $planes->plan_nombre = $request->input('nombre');
-        $planes->plan_precio = $request->input('precio');
-        $planes->domo_id = $request->input('domo');
-        $planes->plan_estado = $request->input('estado');
-        $planes->plan_descripcion = $request->input('descripcion');
-        $planes->save();
+{
+    // Crea una nueva instancia de plane y guarda los datos del formulario
+    $planes = new plane();
+    $planes->plan_nombre = $request->input('nombre');
+    $planes->plan_precio = $request->input('precio');
+    $planes->domo_id = $request->input('domo');
+    $planes->plan_estado = $request->input('estado');
+    $planes->plan_descripcion = $request->input('descripcion');
+    $planes->save();
 
-        $selectedCaracteristicas = $request->input('selectedCaracteristicas');
-        
-        if ($selectedCaracteristicas) {
-            $caracteristicaCodArray = oferta::whereIn('oferta_cod', $selectedCaracteristicas)->pluck('oferta_cod')->toArray();
-           
-            $pivotData = [];
-            foreach ($caracteristicaCodArray as $ofertaCod) {
-                $pivotData[$ofertaCod] = [
-                    'plan_oferta_fech_ini' => $request->input('fechainicial'),
-                    'plan_oferta_fech_fin' => $request->input('fechafinal'),
-                    'plan_oferta_nombre' => $request->input('nombreof'),
-                    'plan_oferta_estado' => $request->input('estadoof'),
-                ];
-                $request->validate([
-                    'fechainicial' => 'required|date|after_or_equal:' . Carbon::now()->format('Y-m-d'),
-                    'fechafinal' => 'required|date|after:fechainicial|not_in:' . Carbon::now()->format('Y-m-d'),
-                    'nombreof' => 'required|max:50',
-                    'estadoof' => 'required',
-                ], [
-                    'required' => 'El campo :attribute es obligatorio.',
-                    'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
-                    'after_or_equal' => 'La fecha de inicio debe ser posterior a la fecha de hoy',
-                    'after' => 'La fecha final debe ser posterior a la fecha de inicio.',
-                    'not_in' => 'La fecha final no puede ser igual a la fecha de hoy.',
-                ]);
-            }
-           
-        };
-
-
-
-
-        return redirect()->route('planes.index')->with('success', 'Plan creado exitosamente.');
+    // Sincroniza la relación con el modelo oferta
+    $selectedCaracteristicas = $request->input('selectedCaracteristicas');
+    if ($selectedCaracteristicas) {
+        $caracteristicaCodArray = oferta::whereIn('oferta_cod', $selectedCaracteristicas)->pluck('oferta_cod')->toArray();
+        $pivotData = [];
+        foreach ($caracteristicaCodArray as $ofertaCod) {
+            $pivotData[$ofertaCod] = [
+                'plan_oferta_fech_ini' => $request->input('fechainicial'),
+                'plan_oferta_fech_fin' => $request->input('fechafinal'),
+                'plan_oferta_nombre' => $request->input('nombreof'),
+                'plan_oferta_estado' => $request->input('estadoof'),
+            ];
+        }
+        $planes->oferta()->sync($pivotData);
     }
+
+    // Sincroniza la relación con el modelo servicio
+    $selectedServicios = $request->input('selectedServicios');
+    if ($selectedServicios) {
+        $servicioCodArray = Servicio::whereIn('servicio_cod', $selectedServicios)->pluck('servicio_cod')->toArray();
+        $planes->servicio()->sync($servicioCodArray);
+    }
+
+    // Redirige al usuario a la página de índice
+    return redirect()->route('planes.index')->with('success', 'Plan agregado exitosamente.');
+}
+
 
     /**
      * Display the specified resource.

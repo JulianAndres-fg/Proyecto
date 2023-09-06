@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\plane;
+use App\Models\servicio;
 use App\Models\servicioPlan;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,9 @@ class ServicioPlanController extends Controller
      */
     public function create()
     {
-        //
+        $Caracteristicas = servicio::all();
+        $Domos = plane::all();
+        return view('serviciosplanes.create',compact('Domos','Caracteristicas'));
     }
 
     /**

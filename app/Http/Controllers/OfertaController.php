@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class OfertaController extends Controller
 {
+    public function __construct() {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      */
@@ -17,6 +20,7 @@ class OfertaController extends Controller
             'Id',
             'Nombre',
             'Descuento',
+            'Acciones',
         ];
         return view('ofertas.index',compact('Ofertas','header'));
     }
@@ -64,17 +68,36 @@ class OfertaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(oferta $oferta)
+    public function edit($oferta_cod)
     {
-        //
+        $Ofertas = oferta::find($oferta_cod);
+        return view('ofertas.edit',compact('Ofertas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, oferta $oferta)
+    public function update(Request $request, $oferta_cod)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:50',
+            'descuento' => 'required|numeric',
+
+
+
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+            // 'unique' => 'El campo :attribute debe ser único',
+            //agregar validacion maximo para numeros
+
+        ]);
+        $Ofertas = oferta::find($oferta_cod);
+        $Ofertas-> oferta_nombre = $request -> input('nombre');
+        $Ofertas-> oferta_descuento = $request -> input('descuento');
+        $Ofertas-> update();
+        return redirect()->route('ofertas.index')->with('update', 'Oferta actualizada exitosamente.');
     }
 
     /**

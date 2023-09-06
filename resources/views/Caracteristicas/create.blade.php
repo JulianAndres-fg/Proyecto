@@ -3,13 +3,13 @@
 @section('title', 'Crear caracteristicas')
 
 @section('content_header')
-    <h1>Caracteristica</h1>
+    <h1>Caracteristicas</h1>
 @stop
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h5>Agrega caracteristica a la lista</h5>
+        <h5>Agrega caracteristicas a la lista</h5>
     </div>
     <div class="card-body">
         <form action="{{url('caracteristicas')}}" method="POST">
@@ -24,18 +24,19 @@
                 </div>
             </x-slot>
             <option>
-            <option>A</option>
-            <option>I</option>
+                <option value="A" @if (old('estado') == 'A')  selected @endif>A</option>
+                <option value="I" @if (old('estado') == 'I')  selected @endif>I</option>
         </x-adminlte-select2>
     
         {{-- Descripcion --}}
         <x-adminlte-textarea name="descripcion" label="Descripcion" rows=3 label-class="text-lightblue"
-        igroup-size="sm" placeholder="Añade una descripción..." value="{{old('descripcion')}}">
+        igroup-size="sm" placeholder="Añade una descripción..." >
         <x-slot name="prependSlot">
             <div class="input-group-text bg-light">
                 <i class="fas fa-lg fa-file-alt text-lightblue"></i>
             </div>
         </x-slot>
+        {{old('descripcion')}}
     </x-adminlte-textarea>
     
     {{-- Nombre --}}
@@ -49,7 +50,7 @@
     
     {{-- Precio --}}
             
-    <x-adminlte-input name="precio" label="Precio" placeholder="Precio de la caracteristica" label-class="text-lightblue" value="{{old('precio')}}">
+    <x-adminlte-input name="precio" label="Precio" placeholder="Precio de la caracteristica" type="number" label-class="text-lightblue" value="{{old('precio')}}">
         <x-slot name="prependSlot">
             <div class="input-group-text">
                 <i class="fas fa-dollar-sign text-lightblue"></i>

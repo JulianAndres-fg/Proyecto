@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class servicio extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'servicio_cod';
+
+    public function plane()
+    {
+        return $this->belongsToMany(plane::class, 'servicios_planes', 'servicio_id', 'plan_id');
+    }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('caracteristica_id');
             $table->foreign('caracteristica_id')->references('caracteristica_cod')->on('caracteristicas');
             $table->unsignedInteger('domo_id');
-            $table->foreign('domo_id')->references('domo_cod')->on('domos');
+            $table->foreign('domo_id')->references('domo_cod')->on('domos')->onDelete('cascade');
             $table->timestamps();
         });
     }

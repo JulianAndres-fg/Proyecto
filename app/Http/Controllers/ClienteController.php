@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
+    public function __construct() {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      */
@@ -88,7 +91,7 @@ class ClienteController extends Controller
     public function edit($cliente_cedula)
     {
         $Clientes = cliente::find($cliente_cedula);
-      return view('cliente.edit',compact('Clientes'));
+        return view('cliente.edit',compact('Clientes'));
     }
 
     /**
@@ -126,15 +129,17 @@ class ClienteController extends Controller
         $Clientes-> cliente_ciudad = $request -> input('ciudad');
         $Clientes-> cliente_direccion = $request -> input('direccion');
         $Clientes-> update();
-        return redirect()->route('clientes.index')->with('success', 'Cliente actualizado exitosamente.');
+        return redirect()->route('clientes.index')->with('update', 'Cliente actualizado exitosamente.');
     
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(cliente $cliente)
+    public function destroy($cliente_cedula)
     {
-        //
+        $Clientes= cliente::find($cliente_cedula);
+        $Clientes->delete();
+        return redirect()->route('clientes.index')->with('delete', 'Cliente eliminado exitosamente.');
     }
 }

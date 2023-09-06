@@ -15,9 +15,13 @@ class plane extends Model
         return $this->belongsTo(domo::class, 'domo_id', 'domo_cod');
     }
 
-
+    public function servicio()
+    {
+        return $this->belongsToMany(servicio::class, 'servicios_planes', 'plan_id', 'servicio_id');
+    }
+  
     public function oferta()
     {
-        return $this->belongsToMany(plane::class, 'plan_ofertas', 'plan_id', 'oferta_id');
+        return $this->belongsToMany(oferta::class, 'plan_ofertas', 'plan_id', 'oferta_id');
     }
 }

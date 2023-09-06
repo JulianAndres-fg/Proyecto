@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class DomoController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -24,7 +31,7 @@ class DomoController extends Controller
             'Acciones'
         ];
         $Domos = domo::all();
-        return view('domos.index',compact('Domos','heads'));
+        return view('domos.index', compact('Domos', 'heads'));
     }
 
     /**
@@ -33,14 +40,14 @@ class DomoController extends Controller
     public function create()
     {
         $caracteristicas = caracteristica::all();
-        return view('domos.create',compact('caracteristicas'));
+        return view('domos.create', compact('caracteristicas'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    
+
     {
         $request->validate([
             'nombre' => 'required',
@@ -55,13 +62,13 @@ class DomoController extends Controller
             'numeric' => 'El campo :attribute debe ser numérico.',
         ]);
         $Domos = new domo();
-        $Domos-> domo_nombre = $request -> input('nombre');
-        $Domos-> domo_estado = $request -> input('estado');
-        $Domos-> domo_precio = $request -> input('precio');
-        $Domos-> domo_ubicacion = $request -> input('ubicacion');
-        $Domos-> domo_descripcion = $request -> input('descripcion');
-        $Domos-> domo_capacidad = $request -> input('capacidad');
-        $Domos-> save();
+        $Domos->domo_nombre = $request->input('nombre');
+        $Domos->domo_estado = $request->input('estado');
+        $Domos->domo_precio = $request->input('precio');
+        $Domos->domo_ubicacion = $request->input('ubicacion');
+        $Domos->domo_descripcion = $request->input('descripcion');
+        $Domos->domo_capacidad = $request->input('capacidad');
+        $Domos->save();
         $selectedCaracteristicas = $request->input('selectedCaracteristicas');
         if ($selectedCaracteristicas) {
             $caracteristicaCodArray = caracteristica::whereIn('caracteristica_cod', $selectedCaracteristicas)->pluck('caracteristica_cod')->toArray();
@@ -73,9 +80,10 @@ class DomoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(domo $domo)
+    public function show($domo_cod)
     {
-        //
+        $domos=domo::find($domo_cod);
+        return view('domos.show',compact('domos'));
     }
 
     /**
@@ -85,15 +93,14 @@ class DomoController extends Controller
     {
         $Domos = domo::find($domo_cod);
         $caracteristicas = caracteristica::all();
-        return view('domos.edit',compact('Domos','caracteristicas'));
+        return view('domos.edit', compact('Domos', 'caracteristicas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$domo_cod)
-    {
-        {
+    public function update(Request $request, $domo_cod)
+    { {
             $request->validate([
                 'nombre' => 'required',
                 'estado' => 'required',
@@ -107,27 +114,32 @@ class DomoController extends Controller
                 'numeric' => 'El campo :attribute debe ser numérico.',
             ]);
             $Domos = domo::find($domo_cod);
-            $Domos-> domo_nombre = $request -> input('nombre');
-            $Domos-> domo_estado = $request -> input('estado');
-            $Domos-> domo_precio = $request -> input('precio');
-            $Domos-> domo_ubicacion = $request -> input('ubicacion');
-            $Domos-> domo_descripcion = $request -> input('descripcion');
-            $Domos-> domo_capacidad = $request -> input('capacidad');
-            $Domos-> update();
+            $Domos->domo_nombre = $request->input('nombre');
+            $Domos->domo_estado = $request->input('estado');
+            $Domos->domo_precio = $request->input('precio');
+            $Domos->domo_ubicacion = $request->input('ubicacion');
+            $Domos->domo_descripcion = $request->input('descripcion');
+            $Domos->domo_capacidad = $request->input('capacidad');
+            $Domos->update();
             $selectedCaracteristicas = $request->input('selectedCaracteristicas');
             if ($selectedCaracteristicas) {
                 $caracteristicaCodArray = caracteristica::whereIn('caracteristica_cod', $selectedCaracteristicas)->pluck('caracteristica_cod')->toArray();
                 $Domos->caracteristicas()->sync($caracteristicaCodArray);
             }
             return redirect()->route('domos.index')->with('update', 'Domo actualizado exitosamente.');
-    }
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(domo $domo)
+    public function destroy($domo_cod)
     {
-        //
+        $domos = domo::find($domo_cod);
+        $domos->delete();
+        if ($domos) {
+            $domos->caracteristicas()->detach();
+        }
+        return redirect()->route('domos.index')->with('delete', 'Domo eliminado exitosamente.');
     }
 }

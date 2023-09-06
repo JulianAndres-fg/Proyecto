@@ -45,6 +45,7 @@ use App\Http\Controllers\PlanOfertaController;
 
 //reservas
 use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\ServicioPlanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,6 +79,9 @@ Route::resource('planes',PlanController::class);
 
 //ruta clientes
 Route::resource('clientes',ClienteController::class);
+
+
+Route::resource('serviciosplanes',ServicioPlanController::class);
 
 //ruta domo_caracteristica
 Route::resource('domocaracteristicas',DomoCaracteristicaController::class);
