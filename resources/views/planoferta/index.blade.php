@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+{{-- @extends('adminlte::page')
 
 @section('title', 'Plan oferta')
 
@@ -29,4 +29,4 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
-@stop
+@stop --}}

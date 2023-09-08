@@ -105,6 +105,6 @@ class CaracteristicaController extends Controller
      */
     public function destroy(caracteristica $caracteristica)
     {
-        //
+        
     }
 }

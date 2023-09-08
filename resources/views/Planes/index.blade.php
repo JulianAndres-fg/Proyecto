@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+{{-- @extends('adminlte::page')
 
 @section('title', 'Planes')
 
@@ -41,4 +41,4 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
-@stop
+@stop --}}

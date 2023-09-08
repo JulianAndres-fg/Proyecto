@@ -1,36 +1,71 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear roles')
+@section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Crear rol</h1>
+    <h1>Roles</h1>
 @stop
 
 @section('content')
-    <p>roles</p>
 
-    <form action="{{url('roles')}}" method="POST">
+<div class="card border-danger">
+    <div class="card-header bg-primary">Crear roles</div>
+  <div class="card-body">
+    <form method="POST" action="{{ route('roles.store') }}">
         @csrf
-
-  {{-- Nombre --}}
-<x-adminlte-input name="nombre" label="Nombre" placeholder="Nombre del rol" label-class="text-lightblue" value="{{old('nombre')}}">
-    <x-slot name="prependSlot">
-        <div class="input-group-text">
-            <i class="fas fa-list text-lightblue"></i>
-        </div>
-    </x-slot>
-</x-adminlte-input>
-
     
-
-
-{{-- botones --}}
-<x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
-<a href="{{route('roles.index')}}" class="btn btn-secondary m-3 float-right">Volver</a>
-
-
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" name="name" class="form-control">
+        </div>
+    
+       
+        <button class="btn btn-primary d-block my-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+           Permisos
+          </button>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <div class="form-group">
+                    <h3 class="text-primary">Permisos</h3>
+                    @php
+                        $categories = [];
+                    @endphp
+            
+                    @foreach ($permission as $permissio)
+                        @php
+                            $parts = explode('-', $permissio->name);
+                            $category = $parts[1] ?? 'Otro';
+                            $categories[$category][] = $permissio;
+                        @endphp
+                    @endforeach
+            
+                    @foreach ($categories as $categoryName => $categoryPermissions)
+                        <div class="category">
+                            <h4 class="text-bold text-center bg-primary">{{ ucfirst($categoryName) }}</h3>
+                            @foreach ($categoryPermissions as $permissio)
+                                <div class="form-check">
+                                    <input class="form-check-input" name="permission[]" type="checkbox" value="{{ $permissio->id }}" id="flexCheckDefault">
+                                    <label>
+                                        {{ $permissio->name }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            
+            
+            
+        </div>
+    
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a class="btn btn-secondary" href="{{route('roles.index')}}">Volver</a>
 
     </form>
+  </div>
+</div>
+
 @stop
 
 @section('css')

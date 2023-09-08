@@ -1,25 +1,32 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolController extends Controller
 {
+    public function __construct() {
+        $this->middleware('permission:ver-rol|crear-rol|editar-rol|borrar-rol',['only'=>['index']]);   
+        $this->middleware('permission:crear-rol',['only'=>['create','store']]);   
+        $this->middleware('permission:editar-rol',['only'=>['edit','update']]);  
+        $this->middleware('permission:borrar-rol',['only'=>['destroy']]); 
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $Roles = role::all();
-        $header = [
+        $heads = [
             'Id',
             'Nombre',
+            'Acciones',
         ];
-        return view('roles.index',compact('Roles','header'));
+        $roles = Role::all();
+        return view('roles.index',compact('roles','heads'));
 
-        
     }
 
     /**
@@ -28,7 +35,8 @@ class RolController extends Controller
     public function create()
     {
         
-        return view('roles.create');
+        $permission = Permission::get();
+        return view('roles.create',compact('permission'));
         
     }
 
@@ -37,17 +45,9 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required|max:50',
-        ], [
-            'required' => 'El campo :attribute es obligatorio.',
-            'max' => 'El campo :attribute no debe tener un maximo de :max caracteres.',
-            'numeric' => 'El campo :attribute debe ser numérico.',
-        ]);
-        $Roles = new role();
-        $Roles-> rol_nombre = $request -> input('nombre');
-        $Roles-> save();
-        return redirect()->route('roles.index')->with('success', 'Rol creado exitosamente.');
+      $role = Role::create(['name' => $request->input('name')]);
+      $role->syncPermissions($request->input('permission'));
+      return redirect()->route('roles.index')->with('success', 'Rol agregado exitosamente.');
     }
 
     /**
@@ -61,24 +61,33 @@ class RolController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(role $role)
+    public function edit($id)
     {
-        //
+        $role = Role::find($id);
+        $permission = Permission::get();
+        $rolepermission = $role->permissions->pluck('id')->all();
+        return view('roles.edit',compact('role','permission','rolepermission'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, role $role)
+    public function update(Request $request,$id)
     {
-        //
+        $role = Role::find($id);
+        $role -> name = $request->input('name');
+        $role->save();
+        $role->syncPermissions($request->input('permission'));
+        return redirect()->route('roles.index')->with('update', 'Rol actualizado exitosamente.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(role $role)
+    public function destroy($id)
     {
-        //
+        DB::table('roles')->where('id',$id)->delete();
+        return redirect()->route('roles.index')->with('delete', 'Rol eliminado exitosamente.');
     }
 }

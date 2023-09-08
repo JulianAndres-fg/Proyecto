@@ -10,9 +10,11 @@ class DomoController extends Controller
 {
 
 
-    public function __construct()
-    {
-        $this->middleware('auth');
+    public function __construct() {
+        $this->middleware('permission:ver-domo|crear-domo|editar-domo|borrar-domo',['only'=>['index']]);   
+        $this->middleware('permission:crear-domo',['only'=>['create','store']]);   
+        $this->middleware('permission:editar-domo',['only'=>['edit','update']]);  
+        $this->middleware('permission:borrar-domo',['only'=>['destroy']]); 
     }
 
     /**

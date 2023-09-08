@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+{{-- @extends('adminlte::page')
 
 @section('title', 'Crear planes')
 
@@ -17,7 +17,7 @@
 
             
             {{-- nombre --}}
-            <x-adminlte-input name="nombre" label="Nombre del plan" placeholder="Nombre del plan" label-class="text-lightblue"
+            {{-- <x-adminlte-input name="nombre" label="Nombre del plan" placeholder="Nombre del plan" label-class="text-lightblue"
                 value="{{ old('nombre') }}">
                 <x-slot name="prependSlot">
                     <div class="input-group-text">
@@ -27,17 +27,17 @@
             </x-adminlte-input>
     
             {{-- precio --}}
-            <x-adminlte-input name="precio" label="Precio del plan" placeholder="Precio del plan" type='number'
+            {{-- <x-adminlte-input name="precio" label="Precio del plan" placeholder="Precio del plan" type='number'
                 label-class="text-lightblue" value="{{ old('precio') }}">
                 <x-slot name="prependSlot">
                     <div class="input-group-text">
                         <i class="fas fa-dollar-sign text-lightblue"></i>
                     </div>
                 </x-slot>
-            </x-adminlte-input>
+            </x-adminlte-input> --}}
             
             {{-- domo --}}
-            <x-adminlte-select2 name="domo" label="Domo" label-class="text-lightblue" igroup-size="md"
+            {{-- <x-adminlte-select2 name="domo" label="Domo" label-class="text-lightblue" igroup-size="md"
                 data-placeholder="Domo">
                 <x-slot name="prependSlot">
                     <div class="input-group-text text-lightblue">
@@ -50,10 +50,10 @@
                 <option value="{{ $domo->domo_cod }}" @if (old('domo') == $domo->domo_cod) selected @endif>{{ $domo->domo_nombre }}</option>
                 @endforeach
                 {{ old('domo') }}
-            </x-adminlte-select2>
+            </x-adminlte-select2> --}}
     
             {{-- estado --}}
-            <x-adminlte-select2 name="estado" label="Estado del plan" label-class="text-lightblue" igroup-size="md"
+            {{-- <x-adminlte-select2 name="estado" label="Estado del plan" label-class="text-lightblue" igroup-size="md"
                 data-placeholder="Estado del plan">
                 <x-slot name="prependSlot">
                     <div class="input-group-text text-lightblue">
@@ -65,10 +65,10 @@
                 <option value="A" @if (old('estado')== 'A') selected @endif>A</option>
                 <option value="I" @if (old('estado') == 'I') selected @endif>I</option>
                 
-            </x-adminlte-select2>
+            </x-adminlte-select2> --}}
     
             {{-- descripcion --}}
-            <x-adminlte-textarea name="descripcion" label="Descripcion del plan" rows=3 label-class="text-lightblue"
+            {{-- <x-adminlte-textarea name="descripcion" label="Descripcion del plan" rows=3 label-class="text-lightblue"
                 igroup-size="sm" placeholder="Añade una descripción...">
                 <x-slot name="prependSlot">
                     <div class="input-group-text bg-light">
@@ -76,11 +76,11 @@
                     </div>
                 </x-slot>
                 {{ old('descripcion') }}
-            </x-adminlte-textarea>
+            </x-adminlte-textarea> --}}
     
     
             {{-- botones --}}
-            <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success"
+            {{-- <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success"
             icon="fas fa-lg fa-save"/>
         
             <a href="{{ route('planes.index') }}" class="btn btn-secondary m-3 float-right">Volver</a>
@@ -93,12 +93,12 @@
             </button>
             <button type="button" class="btn btn-primary m-3 float-right" data-toggle="modal" data-target="#ofertaModal">
                 Seleccionar oferta
-            </button>
+            </button> --}}
             
 
             {{-- Formulario para ofertas --}}
 
-            <div class="modal fade" id="ofertaModal" tabindex="-1" role="dialog" aria-labelledby="ofertaModalLabel" aria-hidden="true">
+            {{-- <div class="modal fade" id="ofertaModal" tabindex="-1" role="dialog" aria-labelledby="ofertaModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -122,10 +122,10 @@
                                             <i class="fas fa-birthday-cake"></i>
                                         </div>
                                     </x-slot>
-                                </x-adminlte-input-date>
+                                </x-adminlte-input-date> --}}
             
                                 {{-- Fecha final --}}
-                                @php
+                                {{-- @php
                                     $config = ['format' => 'YYYY-MM-DD'];
                                 @endphp
                                 <x-adminlte-input-date name="fechafinal" label="Fecha final" label-class="text-lightblue"
@@ -152,16 +152,16 @@
                                 <input type="hidden" name="modal_origin" value="oferta">
                                 <input type="hidden" id="selectedCaracteristicasInput" name="selectedCaracteristicas[]">
                                 {{-- Nombre --}}
-                                <x-adminlte-input name="nombreof" label="Nombre" placeholder="Nombre del plan oferta" label-class="text-lightblue" value="{{ old('nombreof') }}">
+                                {{-- <x-adminlte-input name="nombreof" label="Nombre" placeholder="Nombre del plan oferta" label-class="text-lightblue" value="{{ old('nombreof') }}">
                                     <x-slot name="prependSlot">
                                         <div class="input-group-text">
                                             <i class="fas fa-list text-lightblue"></i>
                                         </div>
                                     </x-slot> 
-                                </x-adminlte-input>
+                                </x-adminlte-input> --}}
             
                                 {{-- Estado --}}
-                                <x-adminlte-select2 name="estadoof" label="Estado" label-class="text-lightblue" igroup-size="md" data-placeholder="Estado" value="{{ old('estadoof') }}">
+                                {{-- <x-adminlte-select2 name="estadoof" label="Estado" label-class="text-lightblue" igroup-size="md" data-placeholder="Estado" value="{{ old('estadoof') }}">
                                     <x-slot name="prependSlot">
                                         <div class="input-group-text text-lightblue">
                                             <i class="fas fa-check"></i>
@@ -191,9 +191,9 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body"> --}}
                             {{-- Formulario para servicios --}}
-                            <form id="servicioForm" action="{{ route('planes.store') }}" method="post"> 
+                            {{-- <form id="servicioForm" action="{{ route('planes.store') }}" method="post"> 
                                 @csrf
                                 @foreach ($servicios as $servicio)
                                     @if ($servicio->servicio_estado == 'A')
@@ -217,12 +217,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
          
             
             
             {{-- modal de seleccion --}}                
-        </form>
+        {{-- </form>
     </div>
 </div>
    
@@ -232,10 +232,10 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
-@section('js')
+@section('js') --}}
 
 {{-- evento --}}
-<script>
+{{-- <script>
      function submitservicioForm() {
      let modalOrigin = $('#modal_origin_servicio').val();
      let selectedServicios = $('#servicioForm input[name="selectedServicios[]"]:checked').map(function () {
@@ -267,4 +267,4 @@
         }
 </script>
 
-@stop
+@stop --}}

@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+{{-- @extends('adminlte::page')
 
 @section('title', 'Crear recomendaciones')
 
@@ -74,4 +74,4 @@ igroup-size="md" data-placeholder="Puntaje" value="{{old('puntaje')}}">
 
 @section('js')
     <script> console.log('Hi!'); </script>
-@stop
+@stop --}}

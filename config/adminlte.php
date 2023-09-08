@@ -302,87 +302,70 @@ return [
         ],
 
         // Sidebar items:
+        // [
+        //     'text' => 'blog',
+        //     'url'  => 'admin/blog',
+        //     'can'  => 'editar-rol',
+        // ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'Dashboard',
+            'text'        => 'Home',
             'url'         => '/home',
             'icon'        => 'fas fa-fw fa-chart-pie',
             // 'label'       => 4,
             'label_color' => 'success',
         ],
         ['header' => 'CONFIGURACION'],
-        [
-            'text' => 'Perfil',
-            'url'  => '#',
-            'icon' => 'fas fa-fw fa-user',
-        ],
+        // [
+        //     'text' => 'Perfil',
+        //     'url'  => '#',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
 
         [
             'text' => 'Roles',
-            'url'  => '#',
+            'can'  => 'ver-rol',
             'icon' => 'fas fa-fw fa-chess',
 
             'submenu' => [
                 [
-                'text' => 'Lista roles',
-                'url'  => 'roles',            
-                'icon' => 'fas fa-fw fa-list'],
+                    'text' => 'Lista roles',
+                    'url'  => 'roles',
+                    'can'  => 'ver-rol',
+                    'icon' => 'fas fa-fw fa-list'
+                ],
 
                 [
                     'text' => 'Crear rol',
                     'url'  => 'roles/create',
+                    'can'  => 'crear-rol',
                     'icon' => 'fas fa-fw fa-plus',
-                    'label' => 'Nuevo',
+                    // 'label' => 'Nuevo',
                     'label_color' => 'success',
                 ],
 
+            ]
+        ],
+
+        [
+            'text' => 'Usuarios',
+            'icon' => 'fas fa-fw fa-users',
+            'can' => 'ver-usuario',
+
+            'submenu' => [
                 [
-                    'text' => 'Permisos',
-                    'url'  => '#',
-                    'icon' => 'fas fa-fw fa-fingerprint',
-                    'submenu' => [
-
-                        [
-                            'text' => 'Lista Permisos',
-                            'url'  => 'permisos',            
-                            'icon' => 'fas fa-fw fa-list'
-                        ],
-
-                        [
-                            'text' => 'Crear permiso',
-                            'url'  => 'permisos/create',
-                            'icon' => 'fas fa-fw fa-plus',
-                            'label' => 'Nuevo',
-                            'label_color' => 'success',
-                        ],
-                    ]   
-                    ],
+                    'text' => 'Lista usuarios',
+                    'url'  => 'usuarios',
+                    'icon' => 'fas fa-fw fa-list'
+                ],
 
                 [
-                    'text' => 'Permiso rol',
-                    'url'  => '#',
-                    'icon' => 'fas fa-fw fa-star',
-                    'submenu' => [
-
-                        [
-                            'text' => 'Lista Permiso roles',
-                            'url'  => 'permisoroles',            
-                            'icon' => 'fas fa-fw fa-list'
-                        ],
-
-                        [
-                            'text' => 'Crear permiso rol',
-                            'url'  => 'permisoroles/create',
-                            'icon' => 'fas fa-fw fa-plus',
-                            'label' => 'Nuevo',
-                            'label_color' => 'success',
-                        ],
-                    ]   
-                ]
+                    'text' => 'Crear usuario',
+                    'url'  => 'usuarios/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                    // 'label' => 'Nuevo',
+                    'can' => 'crear-usuario',
+                    'label_color' => 'success',
+                ],
 
             ]
         ],
@@ -392,18 +375,21 @@ return [
         [
             'text' => 'Domos',
             'icon'    => 'fas fa-fw fa-dungeon',
+            'can'  => 'ver-domo',
             'submenu' => [
                 [
-                'text' => 'Lista domos',
-                'url'  => 'domos',            
-                'icon' => 'fas fa-fw fa-list'],
-                
+                    'text' => 'Lista domos',
+                    'url'  => 'domos',
+                    'icon' => 'fas fa-fw fa-list'
+                ],
+
 
                 [
                     'text' => 'Crear domo',
                     'url'  => 'domos/create',
                     'icon' => 'fas fa-fw fa-plus',
-                    'label' => 'Nuevo',
+                    // 'label' => 'Nuevo',
+                    'can'  => 'crear-domo',
                     'label_color' => 'success',
                 ],
 
@@ -414,83 +400,85 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Lista caracteristicas',
-                            'url'  => 'caracteristicas',            
+                            'url'  => 'caracteristicas',
                             'icon' => 'fas fa-fw fa-list',
                         ],
                         [
                             'text' => 'Crear caracteristica',
-                            'url'  => 'caracteristicas/create',            
+                            'url'  => 'caracteristicas/create',
                             'icon' => 'fas fa-fw fa-plus',
-                        ], 
+                        ],
                     ],
                 ],
 
-                [
+                // [
 
-                    'text' => 'Domo caracteristica',
-                    'icon'    => 'fas fa-fw fa-star',
-                    'submenu' => [
-                        [
-                            'text' => 'Lista domo caracteristicas',
-                            'url'  => 'domocaracteristicas',            
-                            'icon' => 'fas fa-fw fa-list',
-                        ],
-                        
-                    ],
-                ],    
+                    // 'text' => 'Domo caracteristica',
+                    // 'icon'    => 'fas fa-fw fa-star',
+                    // 'submenu' => [
+                    //     // [
+                    //     //     'text' => 'Lista domo caracteristicas',
+                    //     //     'url'  => 'domocaracteristicas',
+                    //     //     'icon' => 'fas fa-fw fa-list',
+                    //     // ],
+
+                    // ],
+                // ],
             ],
         ],
 
-        [
-            'text' => 'Planes',
-            'icon' => 'fas fa-fw fa-clipboard-list',
-            'submenu' => [
-                [
-                'text' => 'Lista planes',
-                'url'  => 'planes',
-                'icon' => 'fas fa-fw fa-list'],
+        // [
+        //     'text' => 'Planes',
+        //     'icon' => 'fas fa-fw fa-clipboard-list',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Lista planes',
+        //             'url'  => 'planes',
+        //             'icon' => 'fas fa-fw fa-list'
+        //         ],
 
-                [
-                    'text' => 'Crear plan',
-                    'url'  => 'planes/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                    'label' => 'Nuevo',
-                    'label_color' => 'success',
-                ],
+        //         [
+        //             'text' => 'Crear plan',
+        //             'url'  => 'planes/create',
+        //             'icon' => 'fas fa-fw fa-plus',
+        //             'label' => 'Nuevo',
+        //             'label_color' => 'success',
+        //         ],
 
-                [
+        //         [
 
-                    'text' => 'Plan oferta',
-                    'icon'    => 'fas fa-fw fa-star',
-                    'submenu' => [
-                        [
-                            'text' => 'Lista plan oferta',
-                            'url'  => 'planoferta',            
-                            'icon' => 'fas fa-fw fa-list',
-                        ],
- 
-                    ],
-                ],
-            ],
+        //             'text' => 'Plan oferta',
+        //             'icon'    => 'fas fa-fw fa-star',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'Lista plan oferta',
+        //                     'url'  => 'planoferta',
+        //                     'icon' => 'fas fa-fw fa-list',
+        //                 ],
+
+        //             ],
+        //         ],
+        //     ],
 
 
-        ],
-        
+        // ],
+
 
         [
             'text' => 'Servicios',
             'icon' => 'fas fa-fw fa-utensils',
             'submenu' => [
                 [
-                'text' => 'Lista servicios',
-                'url'  => 'servicios',            
-                'icon' => 'fas fa-fw fa-list'],
+                    'text' => 'Lista servicios',
+                    'url'  => 'servicios',
+                    'icon' => 'fas fa-fw fa-list'
+                ],
 
                 [
                     'text' => 'Crear servicios',
-                    'url'  => 'servicios/create',            
+                    'url'  => 'servicios/create',
                     'icon' => 'fas fa-fw fa-plus',
-                    'label' => 'Nuevo',
+                    // 'label' => 'Nuevo',
                     'label_color' => 'success',
                 ],
             ],
@@ -500,15 +488,16 @@ return [
             'icon' => 'fas fa-fw fa-bookmark',
             'submenu' => [
                 [
-                'text' => 'Lista reservas',
-                'url'  => 'reservas',            
-                'icon' => 'fas fa-fw fa-list'],
+                    'text' => 'Lista reservas',
+                    'url'  => 'reservas',
+                    'icon' => 'fas fa-fw fa-list'
+                ],
 
                 [
                     'text' => 'Crear reserva',
                     'url'  => 'reservas/create',
                     'icon' => 'fas fa-fw fa-plus',
-                    'label' => 'Nuevo',
+                    // 'label' => 'Nuevo',
                     'label_color' => 'success',
                 ],
             ],
@@ -519,15 +508,16 @@ return [
             'icon' => 'fas fa-fw fa-users',
             'submenu' => [
                 [
-                'text' => 'Lista clientes',
-                'url'  => 'clientes',
-                'icon' => 'fas fa-fw fa-list'],
+                    'text' => 'Lista clientes',
+                    'url'  => 'clientes',
+                    'icon' => 'fas fa-fw fa-list'
+                ],
 
                 [
                     'text' => 'Crear cliente',
                     'url'  => 'clientes/create',
                     'icon' => 'fas fa-fw fa-plus',
-                    'label' => 'Nuevo',
+                    // 'label' => 'Nuevo',
                     'label_color' => 'success',
                 ],
                 [
@@ -541,9 +531,10 @@ return [
             'icon' => 'fas fa-fw fa-wallet',
             'submenu' => [
                 [
-                'text' => 'Lista metodos de pago',
-                'url'  => 'metodosdepago',
-                'icon' => 'fas fa-fw fa-list'],
+                    'text' => 'Lista metodos de pago',
+                    'url'  => 'metodosdepago',
+                    'icon' => 'fas fa-fw fa-list'
+                ],
 
                 [
                     'text' => 'Crear metodo de pago',
@@ -557,72 +548,74 @@ return [
             ],
         ],
 
-        [
-            'text' => 'Ofertas',
-            'icon' => 'fas fa-fw fa-tag',
-            'submenu' => [
-                [
-                'text' => 'Lista ofertas',
-                'url'  => 'ofertas',
-                'icon' => 'fas fa-fw fa-list'],
+        // [
+            // 'text' => 'Ofertas',
+            // 'icon' => 'fas fa-fw fa-tag',
+            // 'submenu' => [
+                // [
+                //     'text' => 'Lista ofertas',
+                //     'url'  => 'ofertas',
+                //     'icon' => 'fas fa-fw fa-list'
+                // ],
 
-                [
-                    'text' => 'Crear oferta',
-                    'url'  => 'ofertas/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                    'label_color' => 'success',
-                ],
-            ],
-            
-        ],
-        [
-            'text' => 'Recomendaciones',
-            'icon' => 'fas fa-fw fa-comment',
-            'submenu' => [
-                [
-                'text' => 'Lista recomendaciones',
-                'url'  => 'recomendaciones',
-                'icon' => 'fas fa-fw fa-list'],
+                // [
+                //     'text' => 'Crear oferta',
+                //     'url'  => 'ofertas/create',
+                //     'icon' => 'fas fa-fw fa-plus',
+                //     'label_color' => 'success',
+                // ],
+            // ],
 
-                [
-                    'text' => 'Crear recomendacion',
-                    'url'  => 'recomendaciones/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                    'label_color' => 'success',
-                ],
-            ],
-            
+        // ],
+        [
+            // 'text' => 'Recomendaciones',
+            // 'icon' => 'fas fa-fw fa-comment',
+            // 'submenu' => [
+                // [
+                //     'text' => 'Lista recomendaciones',
+                //     'url'  => 'recomendaciones',
+                //     'icon' => 'fas fa-fw fa-list'
+                // ],
+
+                // [
+                //     'text' => 'Crear recomendacion',
+                //     'url'  => 'recomendaciones/create',
+                //     'icon' => 'fas fa-fw fa-plus',
+                //     'label_color' => 'success',
+                // ],
+            // ],
+
         ],
 
-        
 
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+
+        // [
+        //     'text'       => 'warning',
+        //     'icon_color' => 'yellow',
+        //     'url'        => '#',
+        // ],
+        // [
+        //     'text'       => 'information',
+        //     'icon_color' => 'cyan',
+        //     'url'        => '#',
+        // ],
     ],
 
-    
-        
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
 
-    
-    
+
+    [
+        'text'       => 'warning',
+        'icon_color' => 'yellow',
+        'url'        => '#',
+    ],
+    [
+        'text'       => 'information',
+        'icon_color' => 'cyan',
+        'url'        => '#',
+    ],
+
+
+
 
     /*
     |--------------------------------------------------------------------------
