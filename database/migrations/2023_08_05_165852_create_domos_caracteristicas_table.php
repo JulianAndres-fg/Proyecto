@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('domo_caracteristicas', function (Blueprint $table) {
             $table->increments('domo_caracteristica_cod');
             $table->unsignedInteger('caracteristica_id');
-            $table->foreign('caracteristica_id')->references('caracteristica_cod')->on('caracteristicas');
+            $table->foreign('caracteristica_id')->references('caracteristica_cod')->on('caracteristicas')->onDelete('cascade');
             $table->unsignedInteger('domo_id');
             $table->foreign('domo_id')->references('domo_cod')->on('domos')->onDelete('cascade');
             $table->timestamps();

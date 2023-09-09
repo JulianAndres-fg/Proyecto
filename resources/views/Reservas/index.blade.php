@@ -37,7 +37,9 @@
 
     </div>
 </div>
+@can('crear-reserva')
 <a href="{{route('reservas.create')}}" class="btn btn-success btn-lg float-right">Crear Reservas</a>
+@endcan
 @stop
 
 @section('css')

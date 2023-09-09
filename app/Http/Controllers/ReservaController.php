@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\cliente;
 use App\Models\reserva;
+use App\Models\servicio;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -11,7 +12,10 @@ use Carbon\Carbon;
 class ReservaController extends Controller
 {
     public function __construct() {
-        $this->middleware("auth");
+        $this->middleware('permission:ver-reserva|crear-reserva|editar-reserva|borrar-reserva',['only'=>['index']]);   
+        $this->middleware('permission:crear-reserva',['only'=>['create','store']]);   
+        $this->middleware('permission:editar-reserva',['only'=>['edit','update']]);  
+        $this->middleware('permission:borrar-reserva',['only'=>['destroy']]); 
     }
     /**
      * Display a listing of the resource.
@@ -44,7 +48,8 @@ class ReservaController extends Controller
         $fechhoy = Carbon::now()->format('Y-m-d');
         $usuarios = User::all();
         $clientes = cliente::all();
-        return view('reservas.create',compact('usuarios','clientes','fechhoy'));
+        $servicios = servicio::all();
+        return view('reservas.create',compact('usuarios','clientes','fechhoy','servicios'));
     }
 
     /**
@@ -52,14 +57,11 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
         $request->validate([
             'fechaini' => 'required|date|after_or_equal:' . Carbon::now()->format('Y-m-d'),
             'fechafin' => 'required|date|after:fechaini|not_in:' . Carbon::now()->format('Y-m-d'),
             'usuario' => 'required',
-            'subtotal' => 'required|numeric',
-            'descuento' => 'required|numeric',
+            'descuento' => 'required|numeric|max:100',
             'cliente' => 'required',
         ], [
             'required' => 'El campo es obligatorio.',
@@ -67,26 +69,61 @@ class ReservaController extends Controller
             'after_or_equal' => 'La fecha de inicio debe ser posterior a la fecha de hoy',
             'after' => 'La fecha final debe ser posterior a la fecha de inicio.',
             'not_in' => 'La fecha final no puede ser igual a la fecha de hoy.',
+            'max' => 'El :attribute no debe ser mayor a :max%.',
         ]);
-        
         $reservas = new reserva();
-        $subtotal = $request->input('subtotal');
+        $servicioprecio = $request->input('selectedCaracteristicasPrecio');
+        if (!empty($servicioprecio) && isset($servicioprecio[0])) {
+            $preciosArray = json_decode($servicioprecio[0], true);
+            $subtotal = array_sum($preciosArray); 
+        } else {
+           $subtotal = 0;
+        };
+        
         $descuento = $request->input('descuento');
         $subtotalConDescuento = $subtotal - ($subtotal * ($descuento / 100));
         $iva = $subtotalConDescuento * 0.19;
         $total = $subtotalConDescuento + $iva;
-        $reservas-> reserva_fech_ini = $request -> input('fechaini');
-        $reservas-> reserva_fech_fin = $request -> input('fechafin');
-        $reservas-> usuario_id = $request -> input('usuario');
+        
+        $reservas->reserva_fech_ini = $request->input('fechaini');
+        $reservas->reserva_fech_fin = $request->input('fechafin');
+        $reservas->usuario_id = $request->input('usuario');
         $reservas->reserva_fech_registro = Carbon::now()->format('Y-m-d');
         $reservas->reserva_subtotal = $subtotal;
         $reservas->reserva_descuento = $descuento;
         $reservas->reserva_iva = $iva;
         $reservas->reserva_total = $total; 
-        $reservas-> cliente_id = $request -> input('cliente');
-        $reservas-> save();
+        $reservas->cliente_id = $request->input('cliente');
+        
+        $reservas->save();
+        
+        $selectedCaracteristicas = $request->input('selectedCaracteristicas');
+        
+        if ($selectedCaracteristicas) {
+            $caracteristicaCodArray = servicio::whereIn('servicio_cod', $selectedCaracteristicas)->pluck('servicio_cod')->toArray();
+            $serviciosInfo = servicio::whereIn('servicio_cod', $selectedCaracteristicas)->get(['servicio_cod', 'servicio_precio', 'servicio_cantidad']);
+            
+            $validServices = $serviciosInfo->pluck('servicio_cod')->toArray();
+            $caracteristicaCodArray = array_intersect($caracteristicaCodArray, $validServices);
+            $syncData = [];
+            
+            foreach ($caracteristicaCodArray as $serviceCode) {
+                $servicio = $serviciosInfo->where('servicio_cod', $serviceCode)->first();
+            
+                if ($servicio) {
+                    $syncData[$serviceCode] = [
+                        'detalle_servicio_precio' => $servicio->servicio_precio,
+                        'detalle_servicio_cantidad' => $servicio->servicio_cantidad,
+                    ];
+                }
+            }
+            
+            $reservas->servicio()->sync($syncData);
+        }
+        
         return redirect()->route('reservas.index')->with('success', 'Reserva agregada exitosamente.');
     }
+    
 
     /**
      * Display the specified resource.
@@ -117,6 +154,6 @@ class ReservaController extends Controller
      */
     public function destroy(reserva $reserva)
     {
-        //
+        
     }
 }

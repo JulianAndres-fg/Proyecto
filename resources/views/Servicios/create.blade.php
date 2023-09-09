@@ -54,6 +54,8 @@
                     </div>
                 </x-slot>
             </x-adminlte-input>
+
+            
         
             {{-- botones --}}
             <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>

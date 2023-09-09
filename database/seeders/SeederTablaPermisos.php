@@ -59,11 +59,11 @@ class SeederTablaPermisos extends Seeder
             'editar-metododepago',
             'borrar-metododepago',
 
-                //tabla  servicios
-                'ver-servicio',
-                'crear-servicio',
-                'editar-servicio',
-                'borrar-servicio',
+            //tabla  servicios
+            'ver-servicio',
+            'crear-servicio',
+            'editar-servicio',
+            'borrar-servicio',
         ];
         foreach ($permisos as $permiso) {
             Permission::create(['name' => $permiso]);

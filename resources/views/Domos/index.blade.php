@@ -91,7 +91,9 @@
             </div>
         </div>
     @endforeach
-    <a href="{{ route('domos.create') }}" class="btn btn-success btn-lg float-right">Crear domo</a>
+    @can('crear-domo')
+         <a href="{{ route('domos.create') }}" class="btn btn-success btn-lg float-right">Crear domo</a>
+    @endcan
 @stop
 
 @section('css')

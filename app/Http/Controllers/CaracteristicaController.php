@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class CaracteristicaController extends Controller
 {
     public function __construct() {
-        $this->middleware("auth");
+        $this->middleware('permission:ver-caracteristica|crear-caracteristica|editar-caracteristica|borrar-caracteristica',['only'=>['index']]);   
+        $this->middleware('permission:crear-caracteristica',['only'=>['create','store']]);   
+        $this->middleware('permission:editar-caracteristica',['only'=>['edit','update']]);  
+        $this->middleware('permission:borrar-caracteristica',['only'=>['destroy']]); 
     }
     /**
      * Display a listing of the resource.
@@ -103,8 +106,11 @@ class CaracteristicaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(caracteristica $caracteristica)
+    public function destroy($caracteristica_cod)
     {
+        $Caracteristicas = caracteristica::find($caracteristica_cod);
+        $Caracteristicas->delete();
         
+        return redirect()->route('caracteristicas.index')->with('delete', 'Caracteristica eliminada exitosamente.');
     }
 }

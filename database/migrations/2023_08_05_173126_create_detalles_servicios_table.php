@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('detalles_servicios', function (Blueprint $table) {
             $table->increments('detalle_servicio_cod');
             $table->unsignedInteger('servicio_id');
-            $table->foreign('servicio_id')->references('servicio_cod')->on('servicios');
+            $table->foreign('servicio_id')->references('servicio_cod')->on('servicios')->onDelete('cascade');
             $table->unsignedInteger('reserva_id');
-            $table->foreign('reserva_id')->references('reserva_cod')->on('reservas');
+            $table->foreign('reserva_id')->references('reserva_cod')->on('reservas')->onDelete('cascade');
             $table->bigInteger('detalle_servicio_precio');
             $table->integer('detalle_servicio_cantidad');
             $table->timestamps();

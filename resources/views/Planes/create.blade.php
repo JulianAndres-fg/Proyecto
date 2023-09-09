@@ -1,4 +1,4 @@
-{{-- @extends('adminlte::page')
+@extends('adminlte::page')
 
 @section('title', 'Crear planes')
 
@@ -267,4 +267,4 @@
         }
 </script>
 
-@stop --}}
+@stop

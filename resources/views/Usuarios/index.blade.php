@@ -39,7 +39,12 @@
                             @if (!empty($usuario->getRoleNames()))
                             @foreach ($usuario->getRoleNames() as $rolName)
                             <div class="d-grid gap-2">
-                              <button type="button" name="" id="" class="btn btn-success" >{{$rolName}}</button>
+                                @if ($rolName === 'El care chimba')
+                                    <button type="button" class="btn btn-success" >{{$rolName}}</button>      
+                                @else
+                                <button type="button"  class="btn btn-primary" >{{$rolName}}</button>      
+                
+                                @endif
                             </div>
                             @endforeach
                         @endif

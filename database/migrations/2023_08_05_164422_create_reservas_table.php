@@ -22,6 +22,8 @@ return new class extends Migration
             $table->float('reserva_descuento');
             $table->bigInteger('reserva_iva');
             $table->bigInteger('reserva_total');
+            $table->unsignedInteger('domo_id');
+            $table->foreign('domo_id')->references('domo_cod')->on('domos');
             $table->string('cliente_id');
             $table->foreign('cliente_id')->references('cliente_cedula')->on('clientes');
             $table->timestamps();

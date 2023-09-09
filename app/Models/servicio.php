@@ -15,4 +15,8 @@ class servicio extends Model
     {
         return $this->belongsToMany(plane::class, 'servicios_planes', 'servicio_id', 'plan_id');
     }
+    public function reserva()
+    {
+        return $this->belongsToMany(reserva::class, 'detalles_servicios', 'servicio_id', 'reserva_id');
+    }
 }

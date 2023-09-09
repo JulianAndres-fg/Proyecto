@@ -292,11 +292,6 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
-        ],
-        [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
@@ -393,23 +388,7 @@ return [
                     'label_color' => 'success',
                 ],
 
-                [
-
-                    'text' => 'Caracteristicas',
-                    'icon'    => 'fas fa-fw fa-binoculars',
-                    'submenu' => [
-                        [
-                            'text' => 'Lista caracteristicas',
-                            'url'  => 'caracteristicas',
-                            'icon' => 'fas fa-fw fa-list',
-                        ],
-                        [
-                            'text' => 'Crear caracteristica',
-                            'url'  => 'caracteristicas/create',
-                            'icon' => 'fas fa-fw fa-plus',
-                        ],
-                    ],
-                ],
+                
 
                 // [
 
@@ -425,6 +404,29 @@ return [
                     // ],
                 // ],
             ],
+        ],
+
+        [
+            
+
+                'text' => 'Caracteristicas',
+                'icon'    => 'fas fa-fw fa-binoculars',
+                 'can'  => 'ver-caracteristica',
+                'submenu' => [
+                    [
+                        'text' => 'Lista caracteristicas',
+                        'url'  => 'caracteristicas',
+                        'icon' => 'fas fa-fw fa-list',
+                    ],
+                    [
+                        'text' => 'Crear caracteristica',
+                        'url'  => 'caracteristicas/create',
+                        'icon' => 'fas fa-fw fa-plus',
+                         'can'  => 'crear-caracteristica',
+
+                    ],
+                ],
+            
         ],
 
         // [
@@ -467,6 +469,8 @@ return [
         [
             'text' => 'Servicios',
             'icon' => 'fas fa-fw fa-utensils',
+            'can'  => 'ver-servicio',
+
             'submenu' => [
                 [
                     'text' => 'Lista servicios',
@@ -478,6 +482,8 @@ return [
                     'text' => 'Crear servicios',
                     'url'  => 'servicios/create',
                     'icon' => 'fas fa-fw fa-plus',
+                    'can'  => 'crear-servicio',
+
                     // 'label' => 'Nuevo',
                     'label_color' => 'success',
                 ],
@@ -486,6 +492,7 @@ return [
         [
             'text' => 'Reservas',
             'icon' => 'fas fa-fw fa-bookmark',
+            'can'  => 'ver-reserva',
             'submenu' => [
                 [
                     'text' => 'Lista reservas',
@@ -497,6 +504,7 @@ return [
                     'text' => 'Crear reserva',
                     'url'  => 'reservas/create',
                     'icon' => 'fas fa-fw fa-plus',
+                    'can'  => 'crear-reserva',
                     // 'label' => 'Nuevo',
                     'label_color' => 'success',
                 ],
@@ -506,6 +514,7 @@ return [
         [
             'text' => 'Clientes',
             'icon' => 'fas fa-fw fa-users',
+            'can'  => 'ver-cliente',
             'submenu' => [
                 [
                     'text' => 'Lista clientes',
@@ -518,6 +527,7 @@ return [
                     'url'  => 'clientes/create',
                     'icon' => 'fas fa-fw fa-plus',
                     // 'label' => 'Nuevo',
+                    'can'  => 'crear-cliente',
                     'label_color' => 'success',
                 ],
                 [
@@ -529,6 +539,7 @@ return [
         [
             'text' => 'Metodos de pago',
             'icon' => 'fas fa-fw fa-wallet',
+            'can'  => 'ver-metododepago',
             'submenu' => [
                 [
                     'text' => 'Lista metodos de pago',
@@ -541,9 +552,7 @@ return [
                     'url'  => 'metodosdepago/create',
                     'icon' => 'fas fa-fw fa-plus',
                     'label_color' => 'success',
-                ],
-                [
-                    'edit_url' => 'metodosdepago/edit/{id}',
+                    'can'  => 'crear-metododepago',
                 ],
             ],
         ],

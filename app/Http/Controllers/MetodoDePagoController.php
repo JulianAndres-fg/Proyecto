@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class MetodoDePagoController extends Controller
 {
     public function __construct() {
-        $this->middleware("auth");
+        $this->middleware('permission:ver-metododepago|crear-metododepago|editar-metododepago|borrar-metododepago',['only'=>['index']]);   
+        $this->middleware('permission:crear-metododepago',['only'=>['create','store']]);   
+        $this->middleware('permission:editar-metododepago',['only'=>['edit','update']]);  
+        $this->middleware('permission:borrar-metododepago',['only'=>['destroy']]); 
     }
     /**
      * Display a listing of the resource.
@@ -92,8 +95,10 @@ class MetodoDePagoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(metodoDePago $metodoDePago)
+    public function destroy($metodo_de_pago_cod)
     {
-        //
+        $MetodosDePagos= metodoDePago::find($metodo_de_pago_cod);
+        $MetodosDePagos->delete();
+        return redirect()->route('metodosdepago.index')->with('delete', 'Metodo de pago eliminado exitosamente.');
     }
 }

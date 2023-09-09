@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class ServicioController extends Controller
 {
     public function __construct() {
-        $this->middleware("auth");
+        $this->middleware('permission:ver-servicio|crear-servicio|editar-servicio|borrar-servicio',['only'=>['index']]);   
+        $this->middleware('permission:crear-servicio',['only'=>['create','store']]);   
+        $this->middleware('permission:editar-servicio',['only'=>['edit','update']]);  
+        $this->middleware('permission:borrar-servicio',['only'=>['destroy']]); 
     }
     /**
      * Display a listing of the resource.
@@ -109,8 +112,13 @@ class ServicioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(servicio $servicio)
+    public function destroy($servicio_cod)
     {
-        //
+        $Servicios = servicio::find($servicio_cod);
+        $Servicios->delete();
+        if ($Servicios) {
+            $Servicios->caracteristicas()->detach();
+        }
+        return redirect()->route('servicios.index')->with('delete', 'Servicio eliminado exitosamente.');
     }
 }
