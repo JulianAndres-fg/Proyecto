@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\caracteristica;
 use App\Models\domo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DomoController extends Controller
 {
@@ -27,9 +28,6 @@ class DomoController extends Controller
             'Nombre',
             'Estado',
             'Precio',
-            'Ubicacion',
-            'Descripcion',
-            'Capacidad',
             'Acciones'
         ];
         $Domos = domo::all();
@@ -84,8 +82,9 @@ class DomoController extends Controller
      */
     public function show($domo_cod)
     {
-        $domos=domo::find($domo_cod);
-        return view('domos.show',compact('domos'));
+        $domos = Domo::find($domo_cod);
+        $caracteristicas = caracteristica::all();
+        return view('domos.show',compact('domos','caracteristicas'));
     }
 
     /**

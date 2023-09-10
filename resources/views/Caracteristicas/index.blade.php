@@ -26,7 +26,8 @@
                 @foreach ($Caracteristicas as $Caracteristica)
                     <tr>
                         <th>{{ $Caracteristica->caracteristica_cod }}</th>
-                        <td>{{ $Caracteristica->caracteristica_estado }}</td>
+                        <td>{{ $Caracteristica->caracteristica_nombre }}</td>
+                        <td>$ {{ number_format($Caracteristica->caracteristica_precio, 0, '.', ',') }}</td>
                         <td>
                             @if ($Caracteristica->caracteristica_descripcion)
                                 {{$Caracteristica->caracteristica_descripcion}}
@@ -34,8 +35,7 @@
                                 Ninguna descripcion
                             @endif
                         </td>
-                        <td>{{ $Caracteristica->caracteristica_nombre }}</td>
-                        <td>$ {{ number_format($Caracteristica->caracteristica_precio, 0, '.', ',') }}</td>
+                        <td>{{ $Caracteristica->caracteristica_estado }}</td>
                         <td>
                             @can('editar-caracteristica')
                             <a href="{{route('caracteristicas.edit',$Caracteristica->caracteristica_cod)}}" title="Edit" class="btn btn-xs btn-default text-primary mx-1 shadow"> <i class="fa fa-lg fa-fw fa-pen"></i></a>
@@ -67,7 +67,6 @@
                         <div class="modal-body">
                             ¿Estas seguro de eliminar la caracteristica <b>{{ $Caracteristica->caracteristica_nombre }}</b>?
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -81,7 +80,6 @@
             </div>
         </div>
     @endforeach
-
 
     @can('crear-caracteristica')
     <a href="{{ route('caracteristicas.create') }}" class="btn btn-success btn-lg float-right">Crear caracteristica</a>

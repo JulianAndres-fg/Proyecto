@@ -80,6 +80,25 @@
                     </x-slot>
                 </x-adminlte-input>
 
+                {{-- Domo --}}
+                <input type="hidden" name="domo_precio" id="domo_precio" value="">
+
+
+                <x-adminlte-select2 name="domo" label="Domo" label-class="text-lightblue" igroup-size="md"
+                    data-placeholder="Domo">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text text-lightblue">
+                            <i class="fas fa-dungeon"></i>
+                        </div>
+                    </x-slot>
+                    <option>
+                        @foreach ($domos as $domo)
+                        <option value="{{$domo->domo_cod}}"  data-precio="{{$domo->domo_precio}}" @if (old('domo') == $domo->domo_cod ) selected @endif>
+                            {{$domo->domo_nombre}}
+                        </option>
+                    @endforeach
+                </x-adminlte-select2>
+
                 {{-- Cliente --}}
                 <x-adminlte-select2 name="cliente" label="Cliente" label-class="text-lightblue" igroup-size="md"
                     data-placeholder="Cliente">
@@ -96,12 +115,7 @@
                     @endforeach
                 </x-adminlte-select2>
 
-                
-
-
-
-
-
+     
 
                 {{-- botones --}}
                 <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success"
@@ -123,7 +137,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            {{-- Formulario para características --}}
+                            {{-- Formulario para servicios --}}
                             <form id="caracteristicasForm" action="{{ url('reservas') }}" method="post">
                                 @csrf
                                 @foreach ($servicios as $servicio)
@@ -177,15 +191,16 @@
     }
 </script>
 
-
-
-
-
-
-
-
-
-
-
+<script>
+    $(document).ready(function() {
+        // Cuando se cambie la opción seleccionada en el select
+        $('select[name="domo"]').change(function() {
+            var selectedDomoPrecio = $(this).find('option:selected').data('precio');
+            
+            // Actualiza el valor del input "domo_precio" con el precio seleccionado
+            $('#domo_precio').val(selectedDomoPrecio);
+        });
+    });
+</script>
 
 @stop

@@ -20,10 +20,10 @@ class CaracteristicaController extends Controller
     {
         $heads = [
             'Id',
-            'Estado',
-            'Descripcion',
             'Nombre',
             'Precio',
+            'Descripcion',
+            'Estado',
             'Acciones',
         ];
         $Caracteristicas = caracteristica::all();

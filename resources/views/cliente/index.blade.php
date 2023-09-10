@@ -40,12 +40,14 @@
                                         class="fa fa-lg fa-fw fa-pen"></i></a>
                             @endcan
 
-                        </td>
-
-                        <td>
+                            @can('borrar-cliente')
                             <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete" data-toggle="modal"
                             data-target="#deleteModal{{ $Cliente->cliente_cedula }}">  <i class="fa fa-lg fa-fw fa-trash"></i></button>
+                            @endcan
                         </td>
+
+                            
+                        
 
                     </tr>
                 @endforeach

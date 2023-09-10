@@ -36,9 +36,6 @@
                         <td>{{ $Domo->domo_nombre }}</td>
                         <td>{{ $Domo->domo_estado }}</td>
                         <td>${{ number_format($Domo->domo_precio, 0, '.', ',') }}</td>
-                        <td>{{ $Domo->domo_ubicacion }}</td>
-                        <td>{{ $Domo->domo_descripcion }}</td>
-                        <td>{{ $Domo->domo_capacidad }}</td>
                         <td>
                             @can('editar-domo')
                             <a href="{{ route('domos.edit', $Domo->domo_cod) }}" title="Edit"

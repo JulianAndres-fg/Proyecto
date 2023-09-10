@@ -116,9 +116,7 @@ class ServicioController extends Controller
     {
         $Servicios = servicio::find($servicio_cod);
         $Servicios->delete();
-        if ($Servicios) {
-            $Servicios->caracteristicas()->detach();
-        }
+    
         return redirect()->route('servicios.index')->with('delete', 'Servicio eliminado exitosamente.');
     }
 }

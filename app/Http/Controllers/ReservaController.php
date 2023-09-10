@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\cliente;
 use App\Models\reserva;
 use App\Models\servicio;
+use App\Models\domo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -30,14 +31,17 @@ class ReservaController extends Controller
             'Fecha registro',
             'Subtotal',
             'Descuento',
+            'Domo',
             'Iva',
             'Total',
             'Cliente'
+
         ];
         $reservas = reserva::all();
         $usuarios = User::all();
         $clientes = cliente::all();
-        return view('reservas.index',compact('reservas','usuarios','clientes','heads'));
+        $domos = domo::all();
+        return view('reservas.index',compact('reservas','usuarios','clientes','domos','heads'));
     }
 
     /**
@@ -49,7 +53,8 @@ class ReservaController extends Controller
         $usuarios = User::all();
         $clientes = cliente::all();
         $servicios = servicio::all();
-        return view('reservas.create',compact('usuarios','clientes','fechhoy','servicios'));
+        $domos = domo::all();
+        return view('reservas.create',compact('usuarios','clientes','fechhoy','domos','servicios'));
     }
 
     /**
@@ -62,6 +67,7 @@ class ReservaController extends Controller
             'fechafin' => 'required|date|after:fechaini|not_in:' . Carbon::now()->format('Y-m-d'),
             'usuario' => 'required',
             'descuento' => 'required|numeric|max:100',
+            'domo' =>'required',
             'cliente' => 'required',
         ], [
             'required' => 'El campo es obligatorio.',
@@ -72,14 +78,15 @@ class ReservaController extends Controller
             'max' => 'El :attribute no debe ser mayor a :max%.',
         ]);
         $reservas = new reserva();
+        $domoPrecio = $request->input('domo_precio');
         $servicioprecio = $request->input('selectedCaracteristicasPrecio');
         if (!empty($servicioprecio) && isset($servicioprecio[0])) {
             $preciosArray = json_decode($servicioprecio[0], true);
-            $subtotal = array_sum($preciosArray); 
+            $precioca = array_sum($preciosArray); 
         } else {
-           $subtotal = 0;
+           $precioca = 0;
         };
-        
+        $subtotal = $precioca + $domoPrecio;
         $descuento = $request->input('descuento');
         $subtotalConDescuento = $subtotal - ($subtotal * ($descuento / 100));
         $iva = $subtotalConDescuento * 0.19;
@@ -89,7 +96,8 @@ class ReservaController extends Controller
         $reservas->reserva_fech_fin = $request->input('fechafin');
         $reservas->usuario_id = $request->input('usuario');
         $reservas->reserva_fech_registro = Carbon::now()->format('Y-m-d');
-        $reservas->reserva_subtotal = $subtotal;
+        $reservas->reserva_subtotal = $subtotalConDescuento;
+        $reservas->domo_id = $request->input('domo');
         $reservas->reserva_descuento = $descuento;
         $reservas->reserva_iva = $iva;
         $reservas->reserva_total = $total; 

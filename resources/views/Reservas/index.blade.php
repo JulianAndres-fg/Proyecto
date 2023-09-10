@@ -28,6 +28,7 @@
                     <td>{{ $reserva->reserva_fech_registro }}</td>
                     <td>$ {{number_format($reserva->reserva_subtotal, 0, '.', ',')}}</td>
                     <td>{{ $reserva->reserva_descuento }}%</td>
+                    <td>{{ $reserva->domo->domo_nombre}}</td>
                     <td>$ {{number_format($reserva->reserva_iva, 0, '.', ',')}}</td>
                     <td>$ {{number_format($reserva->reserva_total, 0, '.', ',') }}</td>
                     <td>{{ $reserva->cliente->cliente_nombre }}</td>

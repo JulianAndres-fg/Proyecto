@@ -14,6 +14,11 @@ class reserva extends Model
         {
             return $this->belongsTo(User::class, 'usuario_id', 'id');
         }
+
+    public function domo()
+        {
+            return $this->belongsTo(domo::class, 'domo_id', 'domo_cod');
+        }
     
         public function cliente()
         {

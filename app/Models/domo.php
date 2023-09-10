@@ -16,5 +16,7 @@ class domo extends Model
         return $this->belongsToMany(caracteristica::class, 'domo_caracteristicas', 'domo_id', 'caracteristica_id');
     }
 
+    
+
 
 }

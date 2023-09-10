@@ -35,12 +35,48 @@
                                         class="fa fa-lg fa-fw fa-pen"></i></a>
                             @endcan
 
+                            @can('borrar-servicio')
+                                <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete" data-toggle="modal"
+                                data-target="#deleteModal{{ $Servicio->servicio_cod }}">  <i class="fa fa-lg fa-fw fa-trash"></i></button>
+                                @endcan
+
                         </td>
                     </tr>
                 @endforeach
             </x-adminlte-datatable>
         </div>
     </div>
+
+    @foreach ($Servicios as $Servicio)
+    <div class="modal fade" id="deleteModal{{ $Servicio->servicio_cod }}" tabindex="-1"
+        aria-labelledby="deleteModalLabel{{ $Servicio->servicio_cod }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModal{{ $Servicio->servicio_cod }}">Confirmar Eliminación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body">
+                        ¿Estas seguro de eliminar el servicio <b>{{ $Servicio->servicio_nombre }}</b>?
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <form action="{{ route('servicios.destroy', $Servicio->servicio_cod) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
     @can('crear-servicio')
         <a href="{{ route('servicios.create') }}" class="btn btn-success btn-lg float-right">Crear servicio</a>
     @endcan
