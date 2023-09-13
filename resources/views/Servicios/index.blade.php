@@ -18,6 +18,14 @@
             {{ session('update') }}
         </div>
     @endif
+
+    @if (session('delete'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('delete') }}
+        </div>
+    @endif
+
+
     <div class="card">
         <div class="card-body">
             <x-adminlte-datatable id="table1" :heads="$header" head-theme="bg-secondary">

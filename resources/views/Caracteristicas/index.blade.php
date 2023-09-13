@@ -12,11 +12,19 @@
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
         </div>
-    @endif  @if (session('update'))
+    @endif  
+    @if (session('update'))
     <div class="alert alert-primary alert-dismissible fade show" role="alert">
         {{ session('update') }}
     </div>
-@endif
+    @endif
+
+    @if (session('delete'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('delete') }}
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-header">
             <h5>Lista de caracteristicas</h5>

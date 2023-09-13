@@ -24,6 +24,13 @@ class reserva extends Model
         {
             return $this->belongsTo(cliente::class, 'cliente_id', 'cliente_cedula');
         }
+
+        public function metodoDePago()
+        {
+            return $this->belongsTo(metodoDePago::class, 'metodo_de_pago_id', 'metodo_de_pago_cod');
+        }
+
+
         public function servicio()
         {
             return $this->belongsToMany(servicio::class, 'detalles_servicios', 'reserva_id', 'servicio_id');

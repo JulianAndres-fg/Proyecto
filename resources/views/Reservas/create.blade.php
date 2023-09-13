@@ -3,13 +3,13 @@
 @section('title', 'Crear reserva')
 
 @section('content_header')
-    <h1>Agregar reserva</h1>
+    <h1>Reservas</h1>
 @stop
 
 @section('content')
-    <div class="card">
+    <div class="card">       
         <div class="card-header">
-            <h5>Agregar reserva a la lista</h5>
+            <h5>Crear reserva</h5>
         </div>
         <div class="card-body">
 
@@ -41,21 +41,6 @@
                     </x-slot>
                 </x-adminlte-input-date>
 
-                {{-- usuario --}}
-                <x-adminlte-select2 name="usuario" label="Usuario" label-class="text-lightblue" igroup-size="md"
-                    data-placeholder="Usuario" value="{{ old('usuario') }}">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text text-lightblue">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </x-slot>
-                    <option>
-                        @foreach ($usuarios as $usuario)
-                    <option value="{{ $usuario->id }}" @if (old('usuario') == $usuario->id) selected @endif>{{ $usuario->name }}</option>
-                    @endforeach
-
-                </x-adminlte-select2>
-
                 {{-- fecha registro --}}
 
                 <x-adminlte-input-date name="fechareg" label="Fecha de registro reserva" label-class="text-lightblue"
@@ -83,39 +68,59 @@
                 {{-- Domo --}}
                 <input type="hidden" name="domo_precio" id="domo_precio" value="">
 
-
                 <x-adminlte-select2 name="domo" label="Domo" label-class="text-lightblue" igroup-size="md"
-                    data-placeholder="Domo">
+                    data-placeholder="Domo" id="domoSelect">
                     <x-slot name="prependSlot">
                         <div class="input-group-text text-lightblue">
                             <i class="fas fa-dungeon"></i>
                         </div>
                     </x-slot>
-                    <option>
-                        @foreach ($domos as $domo)
-                        <option value="{{$domo->domo_cod}}"  data-precio="{{$domo->domo_precio}}" @if (old('domo') == $domo->domo_cod ) selected @endif>
-                            {{$domo->domo_nombre}}
-                        </option>
+                    @foreach ($domos as $domo)
+                        @if ($domo->domo_estado == "A")
+                            <option value="{{ $domo->domo_cod }}" data-precio="{{ $domo->domo_precio }}">
+                                {{ $domo->domo_nombre }}
+                            </option>
+                        @endif
                     @endforeach
                 </x-adminlte-select2>
+
+                {{-- Alerta para cuando no hay domos disponibles --}}
+                <div class="alert alert-danger mt-3" id="domo-alert" style="display: none;">
+                    No hay domos disponibles o se encuentran inactivos si deseas registrar un nuevo domo o cambiar el estado dale <a href="{{route('domos.index')}}">click aqui</a>.
+                </div>
 
                 {{-- Cliente --}}
                 <x-adminlte-select2 name="cliente" label="Cliente" label-class="text-lightblue" igroup-size="md"
-                    data-placeholder="Cliente">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text text-lightblue">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </x-slot>
-                    <option>
-                        @foreach ($clientes as $cliente)
-                        <option value="{{$cliente->cliente_cedula}}" @if (old('cliente') == $cliente->cliente_cedula ) selected @endif>
-                            {{$cliente->cliente_nombre}}
-                        </option>
-                    @endforeach
-                </x-adminlte-select2>
+                data-placeholder="Cliente">
+                <x-slot name="prependSlot">
+                    <div class="input-group-text text-lightblue">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </x-slot>
+                <option>
+                    @foreach ($clientes as $cliente)
+                    <option value="{{$cliente->cliente_cedula}}" @if (old('cliente') == $cliente->cliente_cedula ) selected @endif>
+                        {{$cliente->cliente_nombre}}
+                    </option>
+                @endforeach
+            </x-adminlte-select2>
+                {{-- Metodo de pago --}}
+                <x-adminlte-select2 name="metododepago" label="Metodo de pago" label-class="text-lightblue" igroup-size="md"
+                data-placeholder="Metodo de pago">
+                <x-slot name="prependSlot">
+                    <div class="input-group-text text-lightblue">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                </x-slot>
+                <option>
+                    @foreach ($metodos_de_pagos as $metodos_de_pago)
+                    <option value="{{$metodos_de_pago->metodo_de_pago_cod}}" @if (old('metododepago') == $metodos_de_pago->metodo_de_pago_cod ) selected @endif>
+                        {{$metodos_de_pago->metodo_de_pago_nombre}}
+                    </option>
+                @endforeach
+            </x-adminlte-select2>
 
-     
+                
 
                 {{-- botones --}}
                 <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success"
@@ -189,6 +194,27 @@
 
         $('#caracteristicasModal').modal('hide');
     }
+</script>
+
+<script>
+    function checkDomoValue() {
+        let domoSelect = $('#domoSelect');
+        let domoAlert = $('#domo-alert');
+        let selectedOption = domoSelect.find('option:selected');
+        
+        if (selectedOption.length === 0) {
+            domoAlert.show();
+        } else {
+            domoAlert.hide();
+        }
+    }
+
+    $(document).ready(function() {
+        checkDomoValue();
+        $('#domoSelect').change(function() {
+            checkDomoValue();
+        });
+    });
 </script>
 
 <script>
