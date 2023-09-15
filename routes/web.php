@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     //ruta caracteristicas
     Route::resource('caracteristicas', CaracteristicaController::class);
     //ruta reservas
+    Route::get('reservas/pdf/{reserva_cod}', [ReservaController::class , 'pdf'])->name('reservas.pdf');
     Route::resource('reservas', ReservaController::class);
     //ruta servicios
     Route::resource('servicios', ServicioController::class);

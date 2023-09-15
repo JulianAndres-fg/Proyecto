@@ -24,9 +24,6 @@ class ClienteController extends Controller
             'Apellido',
             'Correo',
             'Celular',
-            'Fecha de nacimiento',
-            'Ciudad',
-            'Direccion',
             'Acciones',
         ];
          $Clientes = cliente::all();
@@ -83,9 +80,10 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(cliente $cliente)
+    public function show($cliente_cedula)
     {
-        //
+        $Cliente = cliente::find($cliente_cedula);
+        return view('cliente.show',compact('Cliente'));
     }
 
     /**

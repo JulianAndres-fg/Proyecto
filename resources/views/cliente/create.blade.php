@@ -65,7 +65,7 @@
 @php
 $config = ['format' => 'YYYY-MM-DD'];
 @endphp
-<x-adminlte-input-date name="fechanac" label="Fecha nacimiento" label-class="text-lightblue" :config="$config" placeholder="Seleccione la fecha de nacimiento..">
+<x-adminlte-input-date name="fechanac" label="Fecha nacimiento" label-class="text-lightblue" :config="$config" placeholder="Seleccione la fecha de nacimiento.." value="{{old('fechanac')}}">
     <x-slot name="prependSlot">
         <div class="input-group-text text-lightblue">
             <i class="fas fa-birthday-cake"></i>

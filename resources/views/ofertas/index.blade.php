@@ -24,7 +24,7 @@
         <h5>Lista de ofertas</h5>
     </div>
     <div class="card-body">
-        <x-adminlte-datatable id="table1" :heads="$header">
+        <x-adminlte-datatable id="table1" :heads="$header"head-theme="dark" striped hoverable with-buttons>
             @foreach($Ofertas as $Oferta)
                 <tr>
                 <td>{{$Oferta ->oferta_cod}}</td>

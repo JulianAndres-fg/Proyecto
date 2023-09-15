@@ -48,6 +48,18 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,',
+            'password' => 'required|same:confirm-password',
+            'roles' => 'required'
+        ],[
+            'required' => 'El campo es requerido',
+            'email' => 'El campo :attribute debe ser un email',
+            'max' => 'El campo :attribute no debe tener :max de caracteres.',
+            'unique' => 'El correo ya está registrado',  
+            'same' => 'La contraseña no coincide.',
+        ]);
         $input = $request->all();
         $input['password']= hash::make($input['password']);
         $user = User::create($input);
@@ -85,6 +97,7 @@ class UsuarioController extends Controller
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
+        
         $input = $request->all();
         if (!empty($input['password'])) {
             $input['password'] = Hash::make($input['password']); 

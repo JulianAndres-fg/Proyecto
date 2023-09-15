@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<x-adminlte-datatable id="table1" :heads="$header">
+<x-adminlte-datatable id="table1" :heads="$header"head-theme="dark" striped hoverable with-buttons>
     @foreach($Permisos as $Permiso)
         <tr>
         <td>{{$Permiso ->permiso_cod}}</td>

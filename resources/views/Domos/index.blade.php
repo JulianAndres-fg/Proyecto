@@ -24,12 +24,13 @@
             {{ session('delete') }}
         </div>
     @endif
-    <div class="card">
-        <div class="card-header">
-            <h5>Lista de domos</h5>
+    
+        <div class="card-header bg-primary">
+            <h5>Lista de Domos</h5>
         </div>
-        <div class="card-body">
-            <x-adminlte-datatable id="table1" :heads="$heads">
+
+            <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable with-buttons>
+
                 @foreach ($Domos as $Domo)
                     <tr>
                         <th scope="row">{{ $Domo->domo_cod }}</th>
@@ -56,6 +57,7 @@
                         </td>
                     </tr>
                 @endforeach
+
             </x-adminlte-datatable>
         </div>
     </div>

@@ -25,11 +25,14 @@
         </div>
     @endif
     <div class="card">
-        <div class="card-header">
-            <h5>Lista de usuarios</h5>
+       
+            <div class="card-header bg-primary">
+                <h5>Lista de Usuarios</h5>
+            </div>
+
         </div>
-        <div class="card-body">
-            <x-adminlte-datatable id="table1" :heads="$heads">
+    
+            <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable with-buttons>
                 @foreach ($usuarios as $usuario)
                     <tr>
                         <th scope="row">{{ $usuario->id }}</th>

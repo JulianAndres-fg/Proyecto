@@ -7,6 +7,13 @@
 @stop
 
 @section('content')
+
+@if (session('error'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ session('error') }}
+</div>
+@endif
+
     <div class="card">       
         <div class="card-header">
             <h5>Crear reserva</h5>
@@ -57,7 +64,7 @@
                 {{-- Descuento --}}
 
                 <x-adminlte-input name="descuento" label="Descuento" placeholder="Descuento de la reserva" type='number'
-                    label-class="text-lightblue">
+                    label-class="text-lightblue" value="{{old('descuento')}}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-percent text-lightblue"></i>
@@ -68,21 +75,22 @@
                 {{-- Domo --}}
                 <input type="hidden" name="domo_precio" id="domo_precio" value="">
 
-                <x-adminlte-select2 name="domo" label="Domo" label-class="text-lightblue" igroup-size="md"
-                    data-placeholder="Domo" id="domoSelect">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text text-lightblue">
-                            <i class="fas fa-dungeon"></i>
-                        </div>
-                    </x-slot>
+                <x-adminlte-select2 name="domo" id="domoSelect" label="Domo" label-class="text-lightblue" igroup-size="md"
+                data-placeholder="Domo"  data-placeholder="Domo">
+                <x-slot name="prependSlot">
+                    <div class="input-group-text text-lightblue">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </x-slot>
+                <option>
                     @foreach ($domos as $domo)
                         @if ($domo->domo_estado == "A")
-                            <option value="{{ $domo->domo_cod }}" data-precio="{{ $domo->domo_precio }}">
+                            <option value="{{ $domo->domo_cod }}" @if (old('domo') == $domo->domo_cod) selected @endif data-precio="{{ $domo->domo_precio }}">
                                 {{ $domo->domo_nombre }}
                             </option>
                         @endif
                     @endforeach
-                </x-adminlte-select2>
+            </x-adminlte-select2>
 
                 {{-- Alerta para cuando no hay domos disponibles --}}
                 <div class="alert alert-danger mt-3" id="domo-alert" style="display: none;">
@@ -123,16 +131,16 @@
                 
 
                 {{-- botones --}}
-                <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success"
-                    icon="fas fa-lg fa-save" />
-                <a href="{{ route('reservas.index') }}" class="btn btn-secondary m-3 float-right">Volver</a>
-                <button type="button" class="btn btn-primary m-3 float-right" data-toggle="modal" data-target="#caracteristicasModal">
+                <x-adminlte-button class="btn-flat m-3 float-right" id="enviarReserva" type="submit" label="Guardar" theme="success"
+                    icon="fas fa-lg fa-save" disabled />
+                <a href="{{ route('reservas.index') }}"  class="btn btn-secondary m-3 float-right">Volver</a>
+                <button type="button" id="abrirModalervicios" class="btn btn-primary m-3 float-right" data-toggle="modal" data-target="#caracteristicasModal">
                     Seleccionar servicio
                 </button>
 
                 
                 <div class="modal fade" id="caracteristicasModal" tabindex="-1" role="dialog"
-                aria-labelledby="caracteristicasModalLabel" aria-hidden="true">
+                aria-labelledby="caracteristicasModalLabel" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -161,7 +169,6 @@
 
                         
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="button" class="btn btn-primary"
                                 onclick="submitCaracteristicasForm();">Guardar Cambios</button>
                         </div>
@@ -190,32 +197,12 @@
         });
 
         $('#selectedCaracteristicasPrecio').val(JSON.stringify(preciosArray)); // Almacenar el array en el campo oculto
-        console.log(preciosArray);
+        console.log(selectedCheckboxes);
 
         $('#caracteristicasModal').modal('hide');
     }
 </script>
 
-<script>
-    function checkDomoValue() {
-        let domoSelect = $('#domoSelect');
-        let domoAlert = $('#domo-alert');
-        let selectedOption = domoSelect.find('option:selected');
-        
-        if (selectedOption.length === 0) {
-            domoAlert.show();
-        } else {
-            domoAlert.hide();
-        }
-    }
-
-    $(document).ready(function() {
-        checkDomoValue();
-        $('#domoSelect').change(function() {
-            checkDomoValue();
-        });
-    });
-</script>
 
 <script>
     $(document).ready(function() {
@@ -225,8 +212,16 @@
             
             // Actualiza el valor del input "domo_precio" con el precio seleccionado
             $('#domo_precio').val(selectedDomoPrecio);
+            console.log(selectedDomoPrecio);
         });
     });
+</script>
+
+<script>
+    document.getElementById('abrirModalervicios').addEventListener('click',function(){
+        document.getElementById('caracteristicasModal').style.display = 'block';
+        document.getElementById('enviarReserva').removeAttribute('disabled');
+    })
 </script>
 
 @stop

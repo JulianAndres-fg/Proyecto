@@ -12,6 +12,12 @@
 <div class="card-header">
     <h5>Agregar metodos de pago a la lista</h5>
 </div>
+
+
+
+
+
+
 <div class="card-body">
     <form action="{{url('metodosdepago')}}" method="POST">
         @csrf

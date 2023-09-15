@@ -2,8 +2,13 @@
 
 @section('title', 'Metodos de pago')
 
+
 @section('content_header')
-    <h1>Metodos de pago</h1>
+
+<div class="card-header">
+<h1>Metodos de pago</h1>
+</div>
+
 @stop
 
 @section('content')
@@ -17,17 +22,16 @@
             {{ session('update') }}
         </div>
     @endif
-    <div class="card">
-        <div class="card-header">
-            <h5>lista de metodos de pago</h5>
-        </div>
-        <div class="card-body">
-            <x-adminlte-datatable id="table1" :heads="$header">
+
+    <div class="card-header bg-primary">
+        <h5>Lista de Metodos de Pago</h5>
+    </div>
+
+            <x-adminlte-datatable id="table1" :heads="$header" head-theme="dark" striped hoverable with-buttons>
                 @foreach ($MetodosDePagos as $MetodosDePago)
                     <tr>
                         <td>{{ $MetodosDePago->metodo_de_pago_cod }}</td>
                         <td>{{ $MetodosDePago->metodo_de_pago_nombre }}</td>
-                        <td>
                         <td>
                             @can('editar-metododepago')
                                 <a href="{{ route('metodosdepago.edit', $MetodosDePago->metodo_de_pago_cod) }}" title="Edit"
@@ -41,13 +45,14 @@
                             @endcan
 
                         </td>
-                        </td>
                     </tr>
                 @endforeach
             </x-adminlte-datatable>
 
         </div>
     </div>
+
+    
 
     @foreach ($MetodosDePagos as $MetodosDePago)
         <div class="modal fade" id="deleteModal{{ $MetodosDePago->metodo_de_pago_cod }}" tabindex="-1"

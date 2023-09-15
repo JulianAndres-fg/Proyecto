@@ -11,4 +11,5 @@ return [
     'unique' => 'El campo :attribute debe ser único',
     'after' => 'La fecha final debe ser posterior a la fecha de inicio.',
     'not_in' => 'La fecha final no puede ser igual a la fecha de hoy.',
+    'same' => 'La contraseña no coincide.',
 ];

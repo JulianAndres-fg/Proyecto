@@ -93,7 +93,7 @@
 
                 {{-- Alerta para cuando no hay domos disponibles --}}
                 <div class="alert alert-danger mt-3" id="domo-alert" style="display: none;">
-                  El domo que se encuetra seleccionado esta inactivo si desea activarlo <a  href="{{route('domos.edit')}}">click aqui</a>.
+                  El domo que se encuetra seleccionado esta inactivo si desea activarlo <a  href="{{route('domos.index')}}">click aqui</a>.
                 </div>
 
                 {{-- Cliente --}}
@@ -131,10 +131,10 @@
      
 
                 {{-- botones --}}
-                <x-adminlte-button class="btn-flat m-3 float-right" type="submit" label="Guardar" theme="success"
-                    icon="fas fa-lg fa-save" />
+                <x-adminlte-button class="btn-flat m-3 float-right" id="enviarReserva" type="submit" label="Guardar" theme="success"
+                    icon="fas fa-lg fa-save" disabled />
                 <a href="{{ route('reservas.index') }}" class="btn btn-secondary m-3 float-right">Volver</a>
-                <button type="button" class="btn btn-primary m-3 float-right" data-toggle="modal" data-target="#caracteristicasModal">
+                <button type="button" class="btn btn-primary m-3 float-right" id="abrirModalervicios" data-toggle="modal" data-target="#caracteristicasModal">
                     Seleccionar servicio
                 </button>
 
@@ -145,9 +145,6 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="caracteristicasModalLabel">Seleccionar servicios</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
                         </div>
                         <div class="modal-body">
                             {{-- Formulario para servicios --}}
@@ -170,7 +167,6 @@
 
                         
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="button" class="btn btn-primary"
                                 onclick="submitCaracteristicasForm();">Guardar Cambios</button>
                         </div>
@@ -221,9 +217,15 @@
             $('#domo_precio').val(selectedDomoPrecio);
         });
 
-        // Llamar a la función para establecer el valor de domo_precio al cargar la página
         setDomoPrecio();
     });
+</script>
+
+<script>
+    document.getElementById('abrirModalervicios').addEventListener('click',function(){
+        document.getElementById('caracteristicasModal').style.display = 'block';
+        document.getElementById('enviarReserva').removeAttribute('disabled');
+    })
 </script>
 
 <script>

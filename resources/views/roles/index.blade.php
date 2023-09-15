@@ -24,12 +24,12 @@
             {{ session('delete') }}
         </div>
     @endif
-    <div class="card">
+    
         <div class="card-header bg-primary">
             <h5>Lista de Roles</h5>
         </div>
-        <div class="card-body">
-            <x-adminlte-datatable id="table1" :heads="$heads">
+        
+            <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable with-buttons>
                 @foreach($roles as $role)
                 <tr>
                     <td>{{$role->id}}</td>
@@ -48,6 +48,8 @@
                 </tr>
                 @endforeach
         </x-adminlte-datatable>
+
+
         </div>
     </div>
     @foreach ($roles as $role)

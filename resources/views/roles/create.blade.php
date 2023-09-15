@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Crear roles')
 
 @section('content_header')
     <h1>Roles</h1>
@@ -13,13 +13,14 @@
   <div class="card-body">
     <form method="POST" action="{{ route('roles.store') }}">
         @csrf
-    
-        <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" name="name" class="form-control">
-        </div>
-    
-       
+        
+        <x-adminlte-input name="name" label="Nombre del Rol" placeholder="Nombre del Rol"  value="{{old('name')}}">
+            <x-slot name="prependSlot">
+                <div class="input-group-text text-info">
+                    <i class="fas fa-chess"></i>
+                </div>
+            </x-slot>
+        </x-adminlte-input>
         <button class="btn btn-primary d-block my-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
            Permisos
           </button>

@@ -48,6 +48,7 @@ class CaracteristicaController extends Controller
             'descripcion' => 'nullable',
             'nombre' => 'required',
             'precio' => 'required|numeric',
+            'descripcion' => 'required',
         ],[
             'required' => 'El campo :attribute es obligatorio.',
             'numeric' => 'El campo :attribute debe ser numérico.',
@@ -89,6 +90,7 @@ class CaracteristicaController extends Controller
             'descripcion' => 'nullable',
             'nombre' => 'required',
             'precio' => 'required|numeric',
+            'descripcion' => 'required',
         ],[
             'required' => 'El campo :attribute es obligatorio.',
             'numeric' => 'El campo :attribute debe ser numérico.',

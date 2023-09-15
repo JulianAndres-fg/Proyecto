@@ -46,7 +46,7 @@
                     </x-slot>
                 </x-adminlte-input>
         
-                <x-adminlte-select2 name="roles" label="roles" igroup-size="md" data-placeholder="Roles" value="{{old('roles')}}">
+                <x-adminlte-select2 name="roles" label="Roles" igroup-size="md" data-placeholder="Roles" value="{{old('roles')}}">
                     <x-slot name="prependSlot">
                         <div class="input-group-text ">
                             <i class="fas fa-chess text-info"></i>

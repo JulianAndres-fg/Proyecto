@@ -127,8 +127,12 @@
                             @if ($reservas->servicio->contains('servicio_cod', $servicio->servicio_cod))
                                 <h5 class="text-primary"><b>Servicio {{ $index + 1 }}</b></h5>
                                 <p>{{ $servicio->servicio_nombre }}</p>
+                                @else
+                                <h2 class="text-center opacity-50">Sin ningun servicio asociado</h2>
                             @endif
                         @endforeach
+
+                
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -24,32 +25,63 @@
         </div>
     @endif
 
-    <div class="card">
-        <div class="card-header">
-            <h5>Lista de las reservas</h5>
-        </div>
-        <div class="card-body">
-         
+    <div class="card-header bg-primary">
+        <h5>Lista de Reservas</h5>
+    </div>
+    
 
 
-            <x-adminlte-datatable id="table1" :heads="$heads">
+
+            <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable with-buttons>
                 @foreach ($reservas as $reserva)
                     <tr>
                         <td>{{ $reserva->reserva_cod }}</td>
-                        <td>{{ $reserva->user->name }}</td>
-                        <td>{{ $reserva->cliente->cliente_cedula }}</td>
-                        <td>{{ $reserva->cliente->cliente_nombre }}</td>
+                        <td>
+                            @if ($reserva->usuario_id)
+                                {{ $reserva->user->name }}
+                            @else
+                                Sin usuario asociado
+                            @endif
+
+
+                        </td>
+                        <td>
+                            @if ($reserva->cliente_id)
+                                {{ $reserva->cliente->cliente_cedula }}
+                            @else
+                                Sin cliente asociado
+                            @endif
+
+
+
+                        </td>
+                        <td>
+                            @if ($reserva->cliente_id)
+                                {{ $reserva->cliente->cliente_nombre }}
+                            @else
+                                Sin cliente asociado
+                            @endif
+
+
+
+                        </td>
 
 
                         @if ($reserva->domo_id)
                             @if ($reserva->domo->domo_estado == 'A')
                                 <td>
-                                    <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" title="El domo se encuentra activo">{{ $reserva->domo->domo_nombre }}</td></button>
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip"
+                                        title="El domo se encuentra activo">{{ $reserva->domo->domo_nombre }}
+                                </td></button>
                             @else
-                             <td><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="El domo se encuentra inactivo">{{ $reserva->domo->domo_nombre }}</td></button></td>
+                                <td><button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                                        title="El domo se encuentra inactivo">{{ $reserva->domo->domo_nombre }}</td>
+                                </button></td>
                             @endif
-                        @else
-                            sin domo asociado
+                            @else
+                             <td class="text-danger">
+                                Sin domo asociado
+                             </td>
                         @endif
 
                         <td>
@@ -70,6 +102,13 @@
                                     class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                                     <i class="fa fa-lg fa-fw fa-eye"></i></a>
                             @endcan
+                                
+                            @can('ver-reserva')
+                            <a href="{{ route('reservas.pdf', ['reserva_cod' => $reserva->reserva_cod]) }}" class="btn btn-xs btn-default text-secondary mx-1 shadow" title="PDF">
+                                <i class="fa fa-lg fa-fw fa-file-pdf"></i>
+                            </a>
+                            @endcan
+                            
                         </td>
                     </tr>
                 @endforeach

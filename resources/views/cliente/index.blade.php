@@ -17,12 +17,12 @@
             {{ session('update') }}
         </div>
     @endif
-    <div class="card">
-        <div class="card-header">
-            <h5>Lista de clientes</h5>
-        </div>
-        <div class="card-body">
-            <x-adminlte-datatable id="table1" :heads="$heads">
+    
+    <div class="card-header bg-primary">
+        <h5>Lista de Clientes</h5>
+    </div>
+    
+            <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable with-buttons>
                 @foreach ($Clientes as $Cliente)
                     <tr>
                         <td>{{ $Cliente->cliente_cedula }}</td>
@@ -30,9 +30,6 @@
                         <td>{{ $Cliente->cliente_apellido }}</td>
                         <td>{{ $Cliente->cliente_correo }}</td>
                         <td>{{ $Cliente->cliente_celular }}</td>
-                        <td>{{ $Cliente->cliente_fech_nac }}</td>
-                        <td>{{ $Cliente->cliente_ciudad }}</td>
-                        <td>{{ $Cliente->cliente_direccion }}</td>
                         <td>
                             @can('editar-cliente')
                                 <a href="{{ route('clientes.edit', $Cliente->cliente_cedula) }}" title="Edit"
@@ -44,6 +41,12 @@
                             <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete" data-toggle="modal"
                             data-target="#deleteModal{{ $Cliente->cliente_cedula }}">  <i class="fa fa-lg fa-fw fa-trash"></i></button>
                             @endcan
+
+                            @can('ver-cliente')
+                            <a href="{{ route('clientes.show', $Cliente->cliente_cedula) }}"
+                                class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                                <i class="fa fa-lg fa-fw fa-eye"></i></a>
+                        @endcan
                         </td>
 
                             

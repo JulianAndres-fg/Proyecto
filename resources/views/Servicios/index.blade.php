@@ -3,7 +3,7 @@
 @section('title', 'Servicios')
 
 @section('content_header')
-    <h1>Lista servicio</h1>
+    <h1>Servicios</h1>
 @stop
 
 @section('content')
@@ -25,10 +25,11 @@
         </div>
     @endif
 
-
-    <div class="card">
-        <div class="card-body">
-            <x-adminlte-datatable id="table1" :heads="$header" head-theme="bg-secondary">
+            <div class="card-header bg-primary">
+                <h5>Lista de Servicios</h5>
+            </div>
+            
+            <x-adminlte-datatable id="table1" :heads="$header" head-theme="bg-secondary" head-theme="dark" striped hoverable with-buttons>
                 @foreach ($Servicios as $Servicio)
                     <tr>
                         <th scope="row">{{ $Servicio->servicio_cod }}</th>

@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReservaController extends Controller
 {
@@ -46,6 +47,22 @@ class ReservaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
+     public function pdf($reserva_cod) {
+        $reserva = Reserva::find($reserva_cod); 
+        $domos = Domo::all();
+        $usuarios = User::all();
+        $clientes = Cliente::all();
+        $metodos_de_pagos = MetodoDePago::all();
+        $servicios = Servicio::all();
+    
+        $pdf = PDF::loadView('reservas.pdf', compact('reserva', 'usuarios', 'domos', 'clientes', 'metodos_de_pagos', 'servicios'));
+    
+        return $pdf->stream();
+    }
+    
+
+
     public function create()
     {
         $fechhoy = Carbon::now()->format('Y-m-d');
@@ -69,6 +86,7 @@ class ReservaController extends Controller
             'descuento' => 'required|numeric|max:100',
             'domo' =>'required',
             'cliente' => 'required',
+            'metododepago' => 'required',
         ], [
             'required' => 'El campo es obligatorio.',
             'date' => 'El formato de la fecha de inicio no es válido.',
@@ -78,10 +96,6 @@ class ReservaController extends Controller
             'max' => 'El :attribute no debe ser mayor a :max%.',
         ]);
 
-        
-    
-
-
         $reservas = new reserva();
         $usuarioauth = Auth::user();
         // Obtener las fechas del formulario 
@@ -89,7 +103,7 @@ class ReservaController extends Controller
         //Convertir las fechas a instancias de Carbon 
         $fecha_inicio = Carbon::parse($fecha_inicio); $fecha_fin = Carbon::parse($fecha_fin);
         // Obtener el número de días entre las fechas 
-        $dias = $fecha_inicio->diffInDays($fecha_fin);
+        $dias = $fecha_inicio->diffInDays($fecha_fin) + 1;
 
         $domoPrecio = $request->input('domo_precio');
         $servicioprecio = $request->input('selectedCaracteristicasPrecio');
@@ -99,7 +113,9 @@ class ReservaController extends Controller
         } else {
            $precioca = 0;
         };
-        $subtotal = ($precioca + $domoPrecio) * $dias;
+
+
+        $subtotal = $precioca + ($domoPrecio * $dias);
         $descuento = $request->input('descuento');
         $subtotalConDescuento = $subtotal - ($subtotal * ($descuento / 100));
         $iva = $subtotalConDescuento * 0.19;
@@ -116,35 +132,86 @@ class ReservaController extends Controller
         $reservas->reserva_total = $total; 
         $reservas->cliente_id = $request->input('cliente');
         $reservas->metodo_de_pago_id = $request->input('metododepago');
+
+
         
-        $reservas->save();
-        
-        $selectedCaracteristicas = $request->input('selectedCaracteristicas');
-        
-        if ($selectedCaracteristicas) {
-            $caracteristicaCodArray = servicio::whereIn('servicio_cod', $selectedCaracteristicas)->pluck('servicio_cod')->toArray();
-            $serviciosInfo = servicio::whereIn('servicio_cod', $selectedCaracteristicas)->get(['servicio_cod', 'servicio_precio', 'servicio_cantidad']);
-            
-            $validServices = $serviciosInfo->pluck('servicio_cod')->toArray();
-            $caracteristicaCodArray = array_intersect($caracteristicaCodArray, $validServices);
-            $syncData = [];
-            
-            foreach ($caracteristicaCodArray as $serviceCode) {
-                $servicio = $serviciosInfo->where('servicio_cod', $serviceCode)->first();
-            
-                if ($servicio) {
-                    $syncData[$serviceCode] = [
-                        'detalle_servicio_precio' => $servicio->servicio_precio,
-                        'detalle_servicio_cantidad' => $servicio->servicio_cantidad,
-                    ];
-                }
-            }
-            
-            $reservas->servicio()->sync($syncData);
+       // Comprobar disponibilidad del domo
+        $domo_id = $request->input('domo');
+        $existingReservations = reserva::where('domo_id', $domo_id)->where(function ($query) use ($fecha_inicio, $fecha_fin) {
+        $query->whereBetween('reserva_fech_ini', [$fecha_inicio, $fecha_fin])->orWhereBetween('reserva_fech_fin', [$fecha_inicio, $fecha_fin])->orWhere(function ($query) use ($fecha_inicio, $fecha_fin) {
+        $query->where('reserva_fech_ini', '<', $fecha_inicio)->where('reserva_fech_fin', '>', $fecha_fin);
+          });
+        })->get();
+
+        // Calcular la próxima fecha disponible
+        $proximaFechaDisponible = null;
+        if ($existingReservations->count() > 0) {
+        $fechasReservas = $existingReservations->pluck('reserva_fech_ini', 'reserva_fech_fin')->toArray();
+
+        // Ordenar las fechas de inicio de manera ascendente
+        ksort($fechasReservas);
+
+        $fechaFinMaxima = null;
+
+        foreach ($fechasReservas as $fechaInicio => $fechaFin) {
+        $fechaInicioReservaActual = Carbon::parse($fechaInicio);
+        $fechaFinReservaActual = Carbon::parse($fechaFin);
+
+        if ($fechaFinMaxima === null || $fechaInicioReservaActual->greaterThanOrEqualTo($fechaFinMaxima)) {
+            $proximaFechaDisponible = $fechaFinReservaActual->addDay(); 
+            $fechaFinMaxima = $fechaFinReservaActual;
         }
-        
-        return redirect()->route('reservas.index')->with('success', 'Reserva agregada exitosamente.');
     }
+}
+
+    // Verificar disponibilidad y mostrar mensaje de error si no está disponible
+    if ($existingReservations->count() > 0) {
+    
+    // Comprobar si la fecha de inicio es igual o posterior a la próxima fecha disponible
+    if ($proximaFechaDisponible !== null && $fecha_inicio->greaterThanOrEqualTo($proximaFechaDisponible)) {
+    // Si es igual o posterior, permite crear la reserva
+    $reservas->save();
+    // Mensaje
+    return redirect()->route('reservas.index')->with('success', 'Reserva agregada exitosamente.');
+}
+
+
+    return redirect()->route('reservas.create')->with('error', 'El domo seleccionado no está disponible en las fechas elegidas. La próxima fecha disponible es a partir del ' . ($proximaFechaDisponible ? $proximaFechaDisponible->format('Y/m/d') : 'la fecha actual') . '.');
+}
+
+
+
+
+$reservas->save();
+
+$selectedCaracteristicas = $request->input('selectedCaracteristicas');
+        
+if ($selectedCaracteristicas) {
+    $caracteristicaCodArray = servicio::whereIn('servicio_cod', $selectedCaracteristicas)->pluck('servicio_cod')->toArray();
+    $serviciosInfo = servicio::whereIn('servicio_cod', $selectedCaracteristicas)->get(['servicio_cod', 'servicio_precio', 'servicio_cantidad']);
+    
+    $validServices = $serviciosInfo->pluck('servicio_cod')->toArray();
+    $caracteristicaCodArray = array_intersect($caracteristicaCodArray, $validServices);
+    $syncData = [];
+    
+    foreach ($caracteristicaCodArray as $serviceCode) {
+        $servicio = $serviciosInfo->where('servicio_cod', $serviceCode)->first();
+    
+        if ($servicio) {
+            $syncData[$serviceCode] = [
+                'detalle_servicio_precio' => $servicio->servicio_precio,
+                'detalle_servicio_cantidad' => $servicio->servicio_cantidad,
+            ];
+        }
+    }
+    
+    $reservas->servicio()->sync($syncData);
+}
+
+
+return redirect()->route('reservas.index')->with('success', 'Reserva agregada exitosamente.');
+    
+}
     
 
     /**
@@ -182,6 +249,8 @@ class ReservaController extends Controller
     public function update(Request $request, $reserva_cod)
     {
         $request->validate([
+            'fechaini' => 'required|date|after_or_equal:' . Carbon::now()->format('Y-m-d'),
+            'fechafin' => 'required|date|after:fechaini|not_in:' . Carbon::now()->format('Y-m-d'),
             'fechafin' => 'required|date|after:fechaini|not_in:' . Carbon::now()->format('Y-m-d'),
             'descuento' => 'required|numeric|max:100',
             'domo' =>'required',
@@ -201,8 +270,9 @@ class ReservaController extends Controller
         //Convertir las fechas a instancias de Carbon 
         $fecha_inicio = Carbon::parse($fecha_inicio); $fecha_fin = Carbon::parse($fecha_fin);
         // Obtener el número de días entre las fechas 
-        $dias = $fecha_inicio->diffInDays($fecha_fin);
+        $dias = $fecha_inicio->diffInDays($fecha_fin) + 1;
         $domoPrecio = $request->input('domo_precio');
+        //dd($domoPrecio);
         $servicioprecio = $request->input('selectedCaracteristicasPrecio');
         if (!empty($servicioprecio) && isset($servicioprecio[0])) {
             $preciosArray = json_decode($servicioprecio[0], true);
@@ -210,7 +280,7 @@ class ReservaController extends Controller
         } else {
            $precioca = 0;
         };
-        $subtotal = ($precioca + $domoPrecio) * $dias;
+        $subtotal = $precioca + ($domoPrecio * $dias );
         //dd($subtotal);
         $descuento = $request->input('descuento');
         $subtotalConDescuento = $subtotal - ($subtotal * ($descuento / 100));

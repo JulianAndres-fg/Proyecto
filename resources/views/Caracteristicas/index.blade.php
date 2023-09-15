@@ -25,12 +25,13 @@
         </div>
     @endif
 
-    <div class="card">
-        <div class="card-header">
-            <h5>Lista de caracteristicas</h5>
-        </div>
-        <div class="card-body">
-            <x-adminlte-datatable id="table1" :heads="$heads">
+    
+    <div class="card-header bg-primary">
+        <h5>Lista de Caracteristicas</h5>
+    </div>
+    
+       
+            <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable with-buttons>
                 @foreach ($Caracteristicas as $Caracteristica)
                     <tr>
                         <th>{{ $Caracteristica->caracteristica_cod }}</th>
