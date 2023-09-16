@@ -9,9 +9,4 @@ class caracteristica extends Model
 {
     use HasFactory;
     protected $primaryKey = 'caracteristica_cod';
-    
-    public function domos()
-    {
-        return $this->belongsToMany(domo::class, 'domo_caracteristicas', 'caracteristica_id', 'domo_id');
-    }
 }
