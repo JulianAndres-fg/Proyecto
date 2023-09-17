@@ -31,7 +31,7 @@ class DomoController extends Controller
             'Acciones'
         ];
         $Domos = domo::all();
-        return view('domos.index', compact('Domos', 'heads'));
+        return view('Domos.index', compact('Domos', 'heads'));
     }
 
     /**
@@ -40,7 +40,7 @@ class DomoController extends Controller
     public function create()
     {
         $caracteristicas = caracteristica::all();
-        return view('domos.create', compact('caracteristicas'));
+        return view('Domos.create', compact('caracteristicas'));
     }
 
     /**
@@ -84,7 +84,7 @@ class DomoController extends Controller
     {
         $domos = Domo::find($domo_cod);
         $caracteristicas = caracteristica::all();
-        return view('domos.show',compact('domos','caracteristicas'));
+        return view('Domos.show',compact('domos','caracteristicas'));
     }
 
     /**
@@ -94,7 +94,7 @@ class DomoController extends Controller
     {
         $Domos = domo::find($domo_cod);
         $caracteristicas = caracteristica::all();
-        return view('domos.edit', compact('Domos', 'caracteristicas'));
+        return view('Domos.edit', compact('Domos', 'caracteristicas'));
     }
 
     /**
