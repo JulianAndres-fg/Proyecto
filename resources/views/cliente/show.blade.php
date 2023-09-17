@@ -16,7 +16,7 @@
                 <div class="float-right mb-2 mt-5">
                     
                     <a class="btn btn-warning d-block w-100 mb-2 " data-toggle="collapse" href="#multiCollapseExample1"
-                        role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Detalles de el cliente</a>
+                        role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Detalles del cliente</a>
                     <a href="{{ route('clientes.index') }}" class="btn btn-secondary d-block w-100 mb-2 mt-2">Volver</a>
                 </div>
             </div>
