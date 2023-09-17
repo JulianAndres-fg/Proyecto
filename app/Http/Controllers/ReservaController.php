@@ -56,7 +56,7 @@ class ReservaController extends Controller
         $metodos_de_pagos = MetodoDePago::all();
         $servicios = Servicio::all();
     
-        $pdf = PDF::loadView('reservas.pdf', compact('reserva', 'usuarios', 'domos', 'clientes', 'metodos_de_pagos', 'servicios'));
+        $pdf = PDF::loadView('Reservas.pdf', compact('reserva', 'usuarios', 'domos', 'clientes', 'metodos_de_pagos', 'servicios'));
     
         return $pdf->download('recibo.pdf');
     }
