@@ -58,7 +58,7 @@ class ReservaController extends Controller
     
         $pdf = PDF::loadView('reservas.pdf', compact('reserva', 'usuarios', 'domos', 'clientes', 'metodos_de_pagos', 'servicios'));
     
-        return $pdf->stream();
+        return $pdf->download('recibo.pdf');
     }
     
 
