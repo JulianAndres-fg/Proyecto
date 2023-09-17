@@ -27,7 +27,7 @@ class ServicioController extends Controller
             'Acciones',
         ];
         $Servicios = servicio::all();
-        return view('servicios.index',compact('Servicios','header'));
+        return view('Servicios.index',compact('Servicios','header'));
     }
 
     /**
@@ -35,7 +35,7 @@ class ServicioController extends Controller
      */
     public function create()
     {
-        return view('servicios.create');
+        return view('Servicios.create');
     }
 
     /**
@@ -76,7 +76,7 @@ class ServicioController extends Controller
     public function edit($servicio_cod)
     {
         $Servicios = servicio::find($servicio_cod);
-        return view('servicios.edit',compact('Servicios'));
+        return view('Servicios.edit',compact('Servicios'));
     }
 
     /**

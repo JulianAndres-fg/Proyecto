@@ -41,7 +41,7 @@ class ReservaController extends Controller
         $clientes = cliente::all();
         $domos = domo::all();
         $metodos_de_pagos = metodoDePago::all();
-        return view('reservas.index',compact('reservas','usuarios','clientes','domos','metodos_de_pagos','heads'));
+        return view('Reservas.index',compact('reservas','usuarios','clientes','domos','metodos_de_pagos','heads'));
     }
 
     /**
@@ -72,7 +72,7 @@ class ReservaController extends Controller
         $domos = domo::all();
         $metodos_de_pagos = metodoDePago::all();
 
-        return view('reservas.create',compact('usuarios','clientes','fechhoy','domos','servicios','metodos_de_pagos'));
+        return view('Reservas.create',compact('usuarios','clientes','fechhoy','domos','servicios','metodos_de_pagos'));
     }
 
     /**
@@ -225,7 +225,7 @@ return redirect()->route('reservas.index')->with('success', 'Reserva agregada ex
         $clientes = cliente::all();
         $metodos_de_pagos = metodoDePago::all();
         $servicios = servicio::all();
-        return view('reservas.show',compact('reservas','usuarios','domos','clientes','metodos_de_pagos','servicios'));
+        return view('Reservas.show',compact('reservas','usuarios','domos','clientes','metodos_de_pagos','servicios'));
     }
 
     /**
@@ -240,7 +240,7 @@ return redirect()->route('reservas.index')->with('success', 'Reserva agregada ex
         $domos = domo::all();
         $clientes = cliente::all();
         $metodos_de_pagos = metodoDePago::all();
-        return view('reservas.edit', compact('reservas','servicios','usuarios','domos','metodos_de_pagos','fechhoy','clientes'));
+        return view('Reservas.edit', compact('reservas','servicios','usuarios','domos','metodos_de_pagos','fechhoy','clientes'));
     }
 
     /**
