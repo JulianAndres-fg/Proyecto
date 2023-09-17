@@ -35,7 +35,7 @@ class CaracteristicaController extends Controller
      */
     public function create()
     {
-        return view('caracteristicas.create');
+        return view('Caracteristicas.create');
     }
 
     /**
