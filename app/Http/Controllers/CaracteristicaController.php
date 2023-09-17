@@ -27,7 +27,7 @@ class CaracteristicaController extends Controller
             'Acciones',
         ];
         $Caracteristicas = caracteristica::all();
-        return view('caracteristicas.index',compact('Caracteristicas','heads'));
+        return view('Caracteristicas.index',compact('Caracteristicas','heads'));
     }
 
     /**
