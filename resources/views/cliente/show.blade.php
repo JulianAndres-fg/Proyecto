@@ -9,7 +9,7 @@
 
     <div class="card">
         <div class="card-header bg-primary">
-            <h5>Detalles de el cliente</h5>
+            <h5>Detalles del cliente</h5>
         </div>
         <div class="col">
             <div class="container">
